@@ -24,7 +24,6 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
@@ -32,7 +31,4 @@
     <Folder Include="ConfigStartup\" />
     <Folder Include="Models\Configurations\" />
   </ItemGroup>
-=======
-
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
 </Project>
