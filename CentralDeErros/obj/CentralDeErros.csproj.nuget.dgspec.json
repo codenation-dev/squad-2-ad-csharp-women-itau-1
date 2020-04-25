@@ -1,41 +1,23 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj": {}
+    "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj": {}
   },
   "projects": {
-    "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj": {
+    "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "projectUniqueName": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
         "projectName": "CentralDeErros",
-        "projectPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
-        "packagesPath": "/Users/izabelsilvaneta/.nuget/packages/",
-        "outputPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/obj/",
-=======
-    "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj": {}
-  },
-  "projects": {
-    "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
-        "projectName": "CentralDeErros",
-        "projectPath": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "projectPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
         "packagesPath": "/home/margot/.nuget/packages/",
-        "outputPath": "/home/margot/codenation/projetoFinal/CentralDeErros/obj/",
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
+        "outputPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-<<<<<<< HEAD
-          "/Users/izabelsilvaneta/.nuget/NuGet/NuGet.Config"
-=======
           "/home/margot/.nuget/NuGet/NuGet.Config"
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
@@ -58,17 +40,6 @@
         "netcoreapp2.2": {
           "dependencies": {
             "AutoMapper": {
-<<<<<<< HEAD
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "IdentityServer4.EntityFramework": {
-=======
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
               "target": "Package",
               "version": "[9.0.0, )"
             },

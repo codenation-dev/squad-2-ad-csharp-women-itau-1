@@ -16,22 +16,6 @@
         }
       },
       "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-<<<<<<< HEAD
-        "type": "package",
-        "dependencies": {
-          "AutoMapper": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
-        }
-      },
-      "IdentityModel/4.1.1": {
-=======
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
         "type": "package",
         "dependencies": {
           "AutoMapper": "9.0.0",
@@ -6572,26 +6556,8 @@
         "microsoft.extensions.dependencymodel.nuspec"
       ]
     },
-<<<<<<< HEAD
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
-      "sha512": "szI4yeRIM7GWe9JyekW0dKYehPB0t6M+I55fPeCebN6PhS7zQZa0eG3bgOnOx+eP3caSNoE7KEJs2rk7MLsh8w==",
-      "type": "package",
-      "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
-        "automapper.extensions.microsoft.dependencyinjection.nuspec",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
-        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
-      ]
-    },
-    "IdentityModel/4.1.1": {
-      "sha512": "l9YnaY3tkKbI3VHdU9Rhsk1RPTv6hvA5An6xE1DEYCMKrv+fQC0Z6mo+b/xyegpD6UJYbNhdkv5GF5tAMvPBNw==",
-=======
     "Microsoft.Extensions.DiagnosticAdapter/2.2.0": {
       "sha512": "Av0QGyboU9hYcprPduZg8Ny4mtp1Z0xOfZGCiBhYMh6a0loNomZ74U1P9EJUBksT2ZJd0+hh/pOQIVdAJ8+AbA==",
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
       "type": "package",
       "path": "microsoft.extensions.diagnosticadapter/2.2.0",
       "files": [
@@ -7847,7 +7813,6 @@
       "path": "runtime.native.system.net.http/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -7992,6 +7957,7 @@
       "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -8007,6 +7973,7 @@
       "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -8022,6 +7989,7 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -8369,6 +8337,7 @@
       "path": "system.collections.specialized/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -10032,6 +10001,7 @@
       "path": "system.private.datacontractserialization/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.3/System.Private.DataContractSerialization.dll",
@@ -11246,7 +11216,6 @@
       "path": "system.security.cryptography.csp/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -11318,7 +11287,6 @@
       "path": "system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.6/System.Security.Cryptography.OpenSsl.dll",
@@ -12334,6 +12302,7 @@
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -12516,14 +12485,6 @@
     }
   },
   "projectFileDependencyGroups": {
-<<<<<<< HEAD
-    ".NETCoreApp,Version=v3.1": [
-      "AutoMapper >= 9.0.0",
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
-      "IdentityServer4.EntityFramework >= 3.1.2",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.3",
-      "Microsoft.EntityFrameworkCore.Tools >= 3.1.3"
-=======
     ".NETCoreApp,Version=v2.2": [
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
@@ -12538,7 +12499,6 @@
       "Microsoft.NETCore.App >= 2.2.0",
       "Newtonsoft.Json >= 12.0.3",
       "Swashbuckle.AspNetCore >= 4.0.1"
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
     ]
   },
   "packageFolders": {
@@ -12548,29 +12508,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+      "projectUniqueName": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
       "projectName": "CentralDeErros",
-      "projectPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
-      "packagesPath": "/Users/izabelsilvaneta/.nuget/packages/",
-      "outputPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/obj/",
-=======
-      "projectUniqueName": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
-      "projectName": "CentralDeErros",
-      "projectPath": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+      "projectPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
       "packagesPath": "/home/margot/.nuget/packages/",
-      "outputPath": "/home/margot/codenation/projetoFinal/CentralDeErros/obj/",
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
+      "outputPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
-        "/Users/izabelsilvaneta/.nuget/NuGet/NuGet.Config"
-=======
         "/home/margot/.nuget/NuGet/NuGet.Config"
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
@@ -12600,9 +12548,6 @@
             "target": "Package",
             "version": "[7.0.0, )"
           },
-<<<<<<< HEAD
-          "IdentityServer4.EntityFramework": {
-=======
           "IdentityServer4": {
             "target": "Package",
             "version": "[2.5.3, )"
@@ -12622,7 +12567,6 @@
             "version": "[2.3.0, )"
           },
           "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": {
->>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
             "target": "Package",
             "version": "[2.2.0, )"
           },
