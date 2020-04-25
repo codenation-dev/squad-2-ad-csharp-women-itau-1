@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralDeErros", "CentralDeErros.csproj", "{BE7EF918-B37B-48EF-B6A6-E81BB56E8F1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE7EF918-B37B-48EF-B6A6-E81BB56E8F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE7EF918-B37B-48EF-B6A6-E81BB56E8F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE7EF918-B37B-48EF-B6A6-E81BB56E8F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE7EF918-B37B-48EF-B6A6-E81BB56E8F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

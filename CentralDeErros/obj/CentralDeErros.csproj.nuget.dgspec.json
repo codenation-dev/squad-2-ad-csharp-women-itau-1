@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "restore": {
+<<<<<<< HEAD
+    "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj": {}
+  },
+  "projects": {
+    "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "projectName": "CentralDeErros",
+        "projectPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "packagesPath": "/Users/izabelsilvaneta/.nuget/packages/",
+        "outputPath": "/Users/izabelsilvaneta/projetoFinal/CentralDeErros/obj/",
+=======
+    "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj": {}
+  },
+  "projects": {
+    "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "projectName": "CentralDeErros",
+        "projectPath": "/home/margot/codenation/projetoFinal/CentralDeErros/CentralDeErros.csproj",
+        "packagesPath": "/home/margot/.nuget/packages/",
+        "outputPath": "/home/margot/codenation/projetoFinal/CentralDeErros/obj/",
+>>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+<<<<<<< HEAD
+          "/Users/izabelsilvaneta/.nuget/NuGet/NuGet.Config"
+=======
+          "/home/margot/.nuget/NuGet/NuGet.Config"
+>>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "AutoMapper": {
+<<<<<<< HEAD
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "IdentityServer4.EntityFramework": {
+=======
+>>>>>>> 9f0ee4871e9c6215e1102181e3dd8a910cd9dffc
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "IdentityServer4": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            },
+            "IdentityServer4.AccessTokenValidation": {
+              "target": "Package",
+              "version": "[2.5.0, )"
+            },
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Mvc.Versioning": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.6, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[4.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

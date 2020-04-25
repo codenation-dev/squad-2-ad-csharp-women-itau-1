@@ -1,0 +1,26 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/CentralErrosContext.cs">
+    <Files>
+      <File FileName="Models/CentralErrosContext.cs" Line="20" Column="45" />
+      <File FileName="Startup.cs" Line="47" Column="1" />
+      <File FileName="ConfigStartup/AutoMapperProfile.cs" Line="17" Column="1" />
+      <File FileName="Models/Configurations/UserConfiguration.cs" Line="15" Column="1" />
+      <File FileName="Models/User.cs" Line="12" Column="23" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CentralDeErros" expanded="True">
+            <Node name="CentralDeErros" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
