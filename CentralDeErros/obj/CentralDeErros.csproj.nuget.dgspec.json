@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj": {}
+    "C:\\Users\\b.de.souza.silva\\Documents\\AceleraDev\\Squad2\\squad-2-ad-csharp-women-itau-1\\CentralDeErros\\CentralDeErros.csproj": {}
   },
   "projects": {
-    "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj": {
+    "C:\\Users\\b.de.souza.silva\\Documents\\AceleraDev\\Squad2\\squad-2-ad-csharp-women-itau-1\\CentralDeErros\\CentralDeErros.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
+        "projectUniqueName": "C:\\Users\\b.de.souza.silva\\Documents\\AceleraDev\\Squad2\\squad-2-ad-csharp-women-itau-1\\CentralDeErros\\CentralDeErros.csproj",
         "projectName": "CentralDeErros",
-        "projectPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/CentralDeErros.csproj",
-        "packagesPath": "/home/margot/.nuget/packages/",
-        "outputPath": "/home/margot/codenation/squad-2-ad-csharp-women-itau-1/CentralDeErros/obj/",
+        "projectPath": "C:\\Users\\b.de.souza.silva\\Documents\\AceleraDev\\Squad2\\squad-2-ad-csharp-women-itau-1\\CentralDeErros\\CentralDeErros.csproj",
+        "packagesPath": "C:\\Users\\b.de.souza.silva\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\b.de.souza.silva\\Documents\\AceleraDev\\Squad2\\squad-2-ad-csharp-women-itau-1\\CentralDeErros\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/margot/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\b.de.souza.silva\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -109,7 +111,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
         }
       }
     }
