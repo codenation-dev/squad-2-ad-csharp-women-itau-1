@@ -10,7 +10,6 @@ namespace CentralDeErros.Models
     public class User
     {
         [Column("Id")]
-        [Required]
         [Key]
         public int Id { get; set; }
 

@@ -12,7 +12,6 @@ namespace CentralDeErros.Models
     {
 
         [Column("Id")]
-        [Required]
         [Key]
         public int Id { get; set; }
 
