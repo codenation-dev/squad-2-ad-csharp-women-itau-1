@@ -38,14 +38,14 @@ namespace CentralDeErros.ConfigStartup
                 //.AddProfileService<UserProfileService>();
 
             //ambiente
-            if (Environment.IsDevelopment())
-            {
-                builder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("ambiente de produção precisa de chave real");
-            }
+            //if (Environment.IsDevelopment())
+            //{
+            //    builder.AddDeveloperSigningCredential();
+            //}
+            //else
+            //{
+            //    throw new Exception("ambiente de produção precisa de chave real");
+            //}
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
