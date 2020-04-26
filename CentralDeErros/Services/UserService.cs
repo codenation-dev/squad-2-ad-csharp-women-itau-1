@@ -2,44 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using CentralDeErros.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentralDeErros.Services
 {
     public class UserService : IUserService
     {
-        private CentralErrosContext _centralErros;
+        private CentralErrosContext _context;
 
         public UserService(CentralErrosContext context)
         {
-            _centralErros = context;
+            _context = context;
         }
 
         public User ProcurarPorId(int userId)
         {
-            return _centralErros.User.Find(userId);
+            return _context.User.Find(userId);
         }
 
         public IList<User> procurarPorLogin(string login)
         {
-            return _centralErros.User.Where(x => x.Login == login).ToList();
+            return _context.User.Where(x => x.Login == login).ToList();
         }
 
         public User Salvar(User user)
         {
-            var existe = _centralErros.User
-                .Where(x => x.Login == user.Login)
-                .FirstOrDefault();
+            var estado = user.Id == 0 ? EntityState.Added : EntityState.Modified;
 
-            if (existe == null)
-                _centralErros.User.Add(user);
-            else
-            {
-                existe.Login = user.Login;
-            }
+            //setar estado do entity
+            _context.Entry(user).State = estado;
 
-            _centralErros.SaveChanges();
+            //persistir os dados
+            _context.SaveChanges();
+
+            //retornar o objeto
             return user;
-            
+
         }
     }
 
