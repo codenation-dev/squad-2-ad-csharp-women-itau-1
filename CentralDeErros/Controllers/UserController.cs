@@ -22,6 +22,7 @@ namespace CentralDeErros.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
+            //teste
             return "value";
         }
 
