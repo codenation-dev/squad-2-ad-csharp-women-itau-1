@@ -20,14 +20,14 @@ namespace CentralDeErros.Services
             return _context.Event.Find(eventId);
         }
 
-        public IList<Event> BuscarPorLevel(string level)
+        public IList<Event> BuscarPorLevel(string level, string ambiente)
         {
-            return _context.Event.Where(x => x.Level == level).ToList();
+            return _context.Event.Where(x => x.Level == level && x.Environment == ambiente).ToList();
         }
 
-        public IList<Event> BuscarPorDescricao(string descricao)
+        public IList<Event> BuscarPorDescricao(string descricao, string ambiente)
         {
-            return _context.Event.Where(x => x.Description == descricao).ToList();
+            return _context.Event.Where(x => x.Description == descricao && x.Environment == ambiente).ToList();
         }
 
         public IList<Event> BuscarPorOrigem(string origem, string ambiente)
