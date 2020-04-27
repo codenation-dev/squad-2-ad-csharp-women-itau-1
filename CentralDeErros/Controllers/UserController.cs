@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CentralDeErros.DTO;
+using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,8 +53,22 @@ namespace CentralDeErros.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = new User()
+            {
+                Id = value.Id,
+                Login = value.Login,
+                Password = value.Password,
+                CreatedAt = value.CreatedAt,
+                Name = value.Name
+            };
+
+            var retorno = _userService.Salvar(user);
+            return Ok(retorno);
         }
 
         // PUT api/values/5
