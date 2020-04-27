@@ -56,6 +56,7 @@ namespace CentralDeErros
             services.AddDbContext<CentralErrosContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEventService, EventService>();
 
             // config prop IdentitServerStartup
             if (IdentitServerStartup != null)
