@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CentralDeErros.Services
 {
-    public class EventService
+    public class EventService : IEventService
     {
         private CentralErrosContext _context;
 

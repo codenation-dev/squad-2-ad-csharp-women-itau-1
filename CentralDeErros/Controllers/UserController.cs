@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CentralDeErros.DTO;
+using CentralDeErros.Models;
+using CentralDeErros.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,8 +12,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace CentralDeErros.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
+        private IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET: api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -20,16 +29,46 @@ namespace CentralDeErros.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<UserDTO> Get(int id)
         {
-            //teste
-            return "value";
+            var user = _userService.ProcurarPorId(id);
+
+            if(user != null)
+            {
+                var retorno = new UserDTO()
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    CreatedAt = user.CreatedAt,
+                    Name = user.Name
+                };
+                return Ok(retorno);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = new User()
+            {
+                Id = value.Id,
+                Login = value.Login,
+                Password = value.Password,
+                CreatedAt = value.CreatedAt,
+                Name = value.Name
+            };
+
+            var retorno = _userService.Salvar(user);
+            return Ok(retorno);
         }
 
         // PUT api/values/5
