@@ -15,10 +15,37 @@ namespace CentralDeErros.Services
             _context = context;
         }
 
-        public Event ProcurarPorId(int userId)
+        public Event ProcurarPorId(int eventId)
         {
-            return _context.Event.Find(userId);
+            return _context.Event.Find(eventId);
         }
+
+        public IList<Event> BuscarPorLevel(string level)
+        {
+            return _context.Event.Where(x => x.Level == level).ToList();
+        }
+
+        public IList<Event> BuscarPorDescricao(string descricao)
+        {
+            return _context.Event.Where(x => x.Description == descricao).ToList();
+        }
+
+        public IList<Event> BuscarPorOrigem(string origem, string ambiente)
+        {
+            return _context.Event.Where(x => x.Origin == origem && x.Environment == ambiente).ToList();
+        }
+
+        public IList<Event> OrdenarPorLevel(List<Event> eventos)
+        {            
+            return eventos.OrderBy(x => x.Level).ToList();
+        }
+
+        //public IList<Event> OrdenarPorFrequencia(int frequencia)
+        //{
+        //    var eventsCount =
+        //    var topEvents = _context.Event.OrderByDescending(x => x.)
+        //    return
+        //} archive, remover evento
 
         public Event Salvar(Event evento)
         {
