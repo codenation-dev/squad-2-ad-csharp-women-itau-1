@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CentralDeErros.Services
 {
-    interface IEventService
+    public interface IEventService
     {
         Event ProcurarPorId(int userId);
 
