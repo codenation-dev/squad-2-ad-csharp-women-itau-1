@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
@@ -15,9 +16,12 @@ namespace CentralDeErros.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _userService;
-        public UserController(IUserService userService)
+        private IMapper _mapper;
+
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         // GET: api/values
@@ -35,14 +39,15 @@ namespace CentralDeErros.Controllers
 
             if(user != null)
             {
-                var retorno = new UserDTO()
+               var retorno = _mapper.Map<UserDTO>(user);
+                /*var retorno = new UserDTO()
                 {
                     Id = user.Id,
                     Login = user.Login,
                     Password = user.Password,
                     CreatedAt = user.CreatedAt,
                     Name = user.Name
-                };
+                };*/
                 return Ok(retorno);
             }
             else
@@ -58,23 +63,33 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = new User()
+            /*var user = new User()
             {
                 Id = value.Id,
                 Login = value.Login,
                 Password = value.Password,
                 CreatedAt = value.CreatedAt,
                 Name = value.Name
-            };
+            };*/
+            var user = _mapper.Map<User>(value);
 
             var retorno = _userService.Salvar(user);
-            return Ok(retorno);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult<UserDTO> Put(int id, [FromBody]string value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = _mapper.Map<User>(value);
+
+            var retorno = _userService.Salvar(user);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
         }
 
         // DELETE api/values/5

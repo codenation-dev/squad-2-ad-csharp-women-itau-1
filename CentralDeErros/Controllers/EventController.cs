@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
@@ -12,10 +13,13 @@ namespace CentralDeErros.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
+        private IMapper _mapper;
         private IEventService _eventService;
-        public EventController(IEventService eventService)
+
+        public EventController(IEventService eventService, IMapper mapper)
         {
             _eventService = eventService;
+            _mapper = mapper;
         }
 
         // GET api/values/5
@@ -23,10 +27,11 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Get(int id)
         {
             var evento = _eventService.ProcurarPorId(id);
-
+           
             if (evento != null)
             {
-                var retorno = new EventDTO()
+               // var retorno = _mapper.Map<UserDTO>(evento);
+                 var retorno =  new EventDTO()
                 {
                     Id = evento.Id,
                     Level = evento.Level,
@@ -48,30 +53,19 @@ namespace CentralDeErros.Controllers
             }
         }
 
-        // POST api/values
+        /* POST api/values
         [HttpPost]
         public ActionResult<EventDTO> Post([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var evento = new Event()
-            {
-                Id = value.Id,
-                Level = value.Level,
-                Archived = value.Archived,
-                CollectedBy = value.CollectedBy,
-                Data = value.Data,
-                Description = value.Description,
-                Environment = value.Environment,
-                Log = value.Log,
-                LogId = value.LogId,
-                Origin = value.Origin,
-                Title = value.Title
-            };
+            var evento = _mapper.Map<Event>(value);
+         
 
             var retorno = _eventService.Salvar(evento);
-            return Ok(retorno);
-        }
+
+            return Ok(_mapper.Map<EventDTO>(retorno));
+        }*/
     }
 }
