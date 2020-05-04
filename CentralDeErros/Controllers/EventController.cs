@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
@@ -12,10 +13,13 @@ namespace CentralDeErros.Controllers
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
+        private IMapper _mapper;
         private IEventService _eventService;
-        public EventController(IEventService eventService)
+
+        public EventController(IEventService eventService, IMapper mapper)
         {
             _eventService = eventService;
+            _mapper = mapper;
         }
 
         // GET api/values/5
@@ -23,10 +27,11 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Get(int id)
         {
             var evento = _eventService.ProcurarPorId(id);
-
+           
             if (evento != null)
             {
-                var retorno = new EventDTO()
+               // var retorno = _mapper.Map<UserDTO>(evento);
+                 var retorno =  new EventDTO()
                 {
                     Id = evento.Id,
                     Level = evento.Level,
@@ -396,7 +401,6 @@ namespace CentralDeErros.Controllers
 
             return Ok(retorno);
         }
-
 
     }
 }
