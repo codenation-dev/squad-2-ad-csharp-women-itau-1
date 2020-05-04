@@ -60,7 +60,6 @@ namespace CentralDeErros.Controllers
 
             var user = new User()
             {
-                Id = value.Id,
                 Login = value.Login,
                 Password = value.Password,
                 CreatedAt = value.CreatedAt,
@@ -73,14 +72,54 @@ namespace CentralDeErros.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult<UserDTO> Put([FromBody]UserDTO value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var user = new User()
+            {
+                Id = value.Id,
+                Login = value.Login,
+                Password = value.Password,
+                CreatedAt = value.CreatedAt,
+                Name = value.Name
+            };
+
+            var retorno = _userService.Salvar(user);
+            return Ok(retorno);
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost]
+        public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var retorno = new List<UserDTO>();
+
+
+            foreach (var item in users)
+            {
+
+                var user = _userService.ProcurarPorId(item.Id);
+
+                if (user == null)
+                    return NotFound(item);
+
+                var userAtual = _userService.Deletar(user);
+
+                retorno.Add(new UserDTO()
+                {
+                    Id = userAtual.Id,
+                    Login = userAtual.Login,
+                    Password = userAtual.Password,
+                    CreatedAt = userAtual.CreatedAt,
+                    Name = userAtual.Name
+                });
+            }
+
+            return Ok(retorno);
         }
     }
 }

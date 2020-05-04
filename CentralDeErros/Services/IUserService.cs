@@ -7,6 +7,7 @@ namespace CentralDeErros.Services
     {
         User ProcurarPorId(int userId);
         IList<User> procurarPorLogin(string login);
+        User Deletar(User user);
         User Salvar(User user);
     }
 }
