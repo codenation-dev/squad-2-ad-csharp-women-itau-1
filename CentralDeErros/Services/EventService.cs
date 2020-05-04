@@ -17,35 +17,63 @@ namespace CentralDeErros.Services
 
         public Event ProcurarPorId(int eventId)
         {
-            return _context.Event.Find(eventId);
+            return _context.Events.Find(eventId);
+        }
+
+        public IList<Event> BuscarPorAmbiente(string ambiente)
+        {
+            return _context.Events.Where(x => x.Environment == ambiente).ToList();
         }
 
         public IList<Event> BuscarPorLevel(string level, string ambiente)
         {
-            return _context.Event.Where(x => x.Level == level && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Level == level && x.Environment == ambiente).ToList();
         }
 
         public IList<Event> BuscarPorDescricao(string descricao, string ambiente)
         {
-            return _context.Event.Where(x => x.Description == descricao && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Description == descricao && x.Environment == ambiente).ToList();
         }
 
         public IList<Event> BuscarPorOrigem(string origem, string ambiente)
         {
-            return _context.Event.Where(x => x.Origin == origem && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Origin == origem && x.Environment == ambiente).ToList();
         }
 
         public IList<Event> OrdenarPorLevel(List<Event> eventos)
-        {            
+        {
             return eventos.OrderBy(x => x.Level).ToList();
         }
 
-        //public IList<Event> OrdenarPorFrequencia(int frequencia)
-        //{
-        //    var eventsCount =
-        //    var topEvents = _context.Event.OrderByDescending(x => x.)
-        //    return
-        //} archive, remover evento
+        public IList<Event> OrdenarPorFrequencia(int frequencia)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Event ArquivarEvento(Event evento)
+        {
+            evento.Arquivar();
+
+            return Salvar(evento);
+        }
+
+        public Event DesarquivarEvento(Event evento)
+        {
+            evento.Desarquivar();
+
+            return Salvar(evento);
+        }
+
+        public Event Deletar(Event evento)
+        {
+            _context.Events.Remove(evento);
+
+            _context.SaveChanges();
+
+            return evento;
+
+        }
 
         public Event Salvar(Event evento)
         {
@@ -61,6 +89,7 @@ namespace CentralDeErros.Services
             return evento;
 
         }
+
     }
 
 }

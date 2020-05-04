@@ -46,7 +46,7 @@ namespace CentralDeErros.Models
 
         [Column("archived")]
         [Required]
-        public byte Archived { get; set; }
+        public bool Archived { get; set; }
 
         [Column("logId")]
         [StringLength(45)]
@@ -62,5 +62,15 @@ namespace CentralDeErros.Models
         [StringLength(45)]
         [Required]
         public string CollectedBy { get; set; }
+
+        public void Arquivar()
+        {
+            Archived = true;
+        }
+
+        public void Desarquivar()
+        {
+            Archived = false;
+        }
     }
 }

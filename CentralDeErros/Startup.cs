@@ -55,7 +55,16 @@ namespace CentralDeErros
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEventService, EventService>();
+<<<<<<< HEAD
+            services.AddAutoMapper(typeof(Startup));
+
+            // config prop IdentitServerStartup
+            if (IdentitServerStartup != null)
+                IdentitServerStartup.ConfigureServices(services);
+
+=======
             
+>>>>>>> bc1c97a0a1435cb4da738915e85e31b703c313a4
             // config versionamento
             services.AddApiVersioning(p =>
             {
