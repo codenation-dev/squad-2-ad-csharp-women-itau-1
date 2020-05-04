@@ -53,19 +53,6 @@ namespace CentralDeErros.Controllers
             }
         }
 
-        /* POST api/values
-        [HttpPost]
-        public ActionResult<EventDTO> Post([FromBody]EventDTO value)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest();
-
-            var evento = _mapper.Map<Event>(value);
-         
-
-            var retorno = _eventService.Salvar(evento);
-
-            return Ok(_mapper.Map<EventDTO>(retorno));
-        }*/
+        
     }
 }
