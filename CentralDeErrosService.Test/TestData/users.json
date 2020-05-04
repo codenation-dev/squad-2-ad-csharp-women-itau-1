@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Name": "Bruna",
+    "Login": "bruna_squad2",
+    "Password": "bruna123",
+    "CreatedAt": "2020-04-01"
+  },
+  {
+    "Id": 2,
+    "Name": "Juliana",
+    "Login": "juliana_squad2",
+    "Password": "juliana123",
+    "CreatedAt": "2020-04-15"
+  },
+  {
+    "Id": 3,
+    "Name": "Izabel",
+    "Login": "izabel_squad2",
+    "Password": "izabel123",
+    "CreatedAt": "2020-05-01"
+  },
+  {
+    "Id": 4,
+    "Name": "Margot",
+    "Login": "margot_squad2",
+    "Password": "margot123",
+    "CreatedAt": "2020-05-02"
+  }
+]

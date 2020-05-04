@@ -17,12 +17,22 @@ namespace CentralDeErros.Services
 
         public User ProcurarPorId(int userId)
         {
-            return _context.User.Find(userId);
+            return _context.Users.Find(userId);
         }
 
         public IList<User> procurarPorLogin(string login)
         {
-            return _context.User.Where(x => x.Login == login).ToList();
+            return _context.Users.Where(x => x.Login == login).ToList();
+        }
+
+        public User Deletar(User user)
+        {
+            _context.Users.Remove(user);
+
+            _context.SaveChanges();
+
+            return user;
+
         }
 
         public User Salvar(User user)

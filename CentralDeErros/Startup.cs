@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Security.Claims;
 using AutoMapper;
 using CentralDeErros.ConfigStartup;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using CentralDeErros.Filters;
+
 
 namespace CentralDeErros
 {
@@ -22,36 +22,35 @@ namespace CentralDeErros
     {
      
         public IConfiguration Configuration { get; }
-        public StartupIdentityServer IdentitServerStartup { get; }
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        
+        
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
 
-            //config ambiente se não for teste
-            if (!environment.IsEnvironment("Testing"))
-                IdentitServerStartup = new StartupIdentityServer(environment);
         }
        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //add politica para user Ingrid
             services.AddMvcCore()
-               .AddAuthorization(opt => {
-                    opt.AddPolicy("Admin", policy => policy
-                       .RequireClaim(ClaimTypes.Email, "ingrid@codenation.com"));
-               })
-               .AddJsonFormatters()
-               .AddApiExplorer()
-               .AddVersionedApiExplorer(p =>
-               {
-                   p.GroupNameFormat = "'v'VVV";
-                   p.SubstituteApiVersionInUrl = true;
-               });
+                    .AddJsonFormatters()
+                    .AddApiExplorer()
+                    .AddVersionedApiExplorer(p =>
+                    {
+                        p.GroupNameFormat = "'v'VVV";
+                        p.SubstituteApiVersionInUrl = true;
+                    });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ErrorResponseFilter));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // config Identity por um método de extensão de IServiceCollection
+            services.AddIdentityConfiguration(Configuration);
 
             services.AddDbContext<CentralErrosContext>();
             services.AddAutoMapper(typeof(Startup));
@@ -59,15 +58,22 @@ namespace CentralDeErros
             services.AddScoped<IEventService, EventService>();
 
             // config prop IdentitServerStartup
-            if (IdentitServerStartup != null)
-                IdentitServerStartup.ConfigureServices(services);
-
+          //  if (IdentitServerStartup != null)
+                //IdentitServerStartup.ConfigureServices(services);
+            
+            //bc1c97a0a1435cb4da738915e85e31b703c313a4
             // config versionamento
             services.AddApiVersioning(p =>
             {
                 p.DefaultApiVersion = new ApiVersion(1, 0);
                 p.ReportApiVersions = true;
                 p.AssumeDefaultVersionWhenUnspecified = true;
+            });
+
+            // config desab validação de Model Sate automatica
+            services.Configure<ApiBehaviorOptions>(opt =>
+            {
+                opt.SuppressModelStateInvalidFilter = true;
             });
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -90,15 +96,6 @@ namespace CentralDeErros
                
             });
 
-            // config autenticação para API - jwt bearer 
-            services.AddAuthentication("Bearer")
-                    .AddJwtBearer("Bearer", options =>
-                    {
-                        options.Authority = "http://localhost:5001";
-                        options.RequireHttpsMetadata = false;
-                        options.Audience = "codenation";
-                    });
-
             // config desab validação de Model State automatico
             services.Configure<ApiBehaviorOptions>
             (
@@ -118,10 +115,7 @@ namespace CentralDeErros
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            if (IdentitServerStartup != null)
-                IdentitServerStartup.Configure(app, env);
-
+            
             // swagger
             app.UseSwagger();
 

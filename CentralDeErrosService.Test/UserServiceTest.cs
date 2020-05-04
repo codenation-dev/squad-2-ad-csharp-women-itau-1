@@ -2,6 +2,7 @@ using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace CentralDeErrosService.Test
@@ -9,32 +10,31 @@ namespace CentralDeErrosService.Test
     public class UserServiceTest
     {
         private CentralErrosContext _context;
+        private BaseContext _baseContext { get; }
+
+        private UserService _userService;
 
         public UserServiceTest()
         {
-            var options = new DbContextOptionsBuilder<CentralErrosContext>();
-            options.UseSqlServer("Server=WIN-M8X17VUIO5\\TESTE;Database=CentralDeErros; User Id =sa; Password=04011995;Trusted_Connection=False");
-
-            _context = new CentralErrosContext(options.Options);
+            _context = new CentralErrosContext(_baseContext.Options);
+            _baseContext = new BaseContext();
+            _userService = new UserService(_context);
         }
+
         [Fact]
-        public void Save_Test()
+        public void Devera_Add_User()
         {
-            DateTime date = DateTime.Now;
-            
-            var fakeUser = new User()
-            {
-                Id = 0,
-                Login = "user3",
-                Name = "test3",
-                CreatedAt = new DateTime(date.Year, date.Month, date.Day, 0, 0, 5),
-                Password = "12345"
-            };
+            var fakeUser = _baseContext.GetTestData<User>().First();
+            fakeUser.Id = 0;
 
+            var atual = new User();
+
+            //metodo de teste
             var service = new UserService(_context);
-            var atual = service.Salvar(fakeUser);
+            atual = service.Salvar(fakeUser);
 
-            Assert.Equal(fakeUser.Id, atual.Id);
+            //Assert
+            Assert.NotEqual(0, fakeUser.Id);
         }
     }
 }
