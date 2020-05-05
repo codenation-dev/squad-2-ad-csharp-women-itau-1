@@ -40,14 +40,7 @@ namespace CentralDeErros.Controllers
             if (user != null)
             {
                 var retorno = _mapper.Map<UserDTO>(user);
-                /*var retorno = new UserDTO()
-                {
-                    Id = user.Id,
-                    Login = user.Login,
-                    Password = user.Password,
-                    CreatedAt = user.CreatedAt,
-                    Name = user.Name
-                };*/
+                
                 return Ok(retorno);
             }
             else
@@ -61,15 +54,8 @@ namespace CentralDeErros.Controllers
         public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            /*var user = new User()
-            {
-                Login = value.Login,
-                Password = value.Password,
-                CreatedAt = value.CreatedAt,
-                Name = value.Name
-            };*/
             var user = _mapper.Map<User>(value);
 
             var retorno = _userService.Salvar(user);
@@ -95,13 +81,10 @@ namespace CentralDeErros.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
+        public ActionResult Deletar([FromBody]List<UserDTO> users)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-
-            var retorno = new List<UserDTO>();
-
 
             foreach (var item in users)
             {
@@ -111,19 +94,11 @@ namespace CentralDeErros.Controllers
                 if (user == null)
                     return NotFound(item);
 
-                var userAtual = _userService.Deletar(user);
+                 _userService.Deletar(user);
 
-                retorno.Add(new UserDTO()
-                {
-                    Id = userAtual.Id,
-                    Login = userAtual.Login,
-                    Password = userAtual.Password,
-                    CreatedAt = userAtual.CreatedAt,
-                    Name = userAtual.Name
-                });
             }
 
-            return Ok(retorno);
+            return Ok();
         }
     }
 }
