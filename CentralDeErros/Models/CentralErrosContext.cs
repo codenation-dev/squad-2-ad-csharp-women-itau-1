@@ -7,8 +7,8 @@ namespace CentralDeErros.Models
 {
     public class CentralErrosContext : DbContext
     {
-        public DbSet<User> User { get; set; }
-        public DbSet<Event> Event { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         public CentralErrosContext(DbContextOptions<CentralErrosContext> options) : base(options)
         {

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,9 +18,12 @@ namespace CentralDeErros.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _userService;
-        public UserController(IUserService userService)
+        private IMapper _mapper;
+
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         // GET: api/values
@@ -33,16 +39,10 @@ namespace CentralDeErros.Controllers
         {
             var user = _userService.ProcurarPorId(id);
 
-            if(user != null)
+            if (user != null)
             {
-                var retorno = new UserDTO()
-                {
-                    Id = user.Id,
-                    Login = user.Login,
-                    Password = user.Password,
-                    CreatedAt = user.CreatedAt,
-                    Name = user.Name
-                };
+                var retorno = _mapper.Map<UserDTO>(user);
+                
                 return Ok(retorno);
             }
             else
@@ -56,31 +56,83 @@ namespace CentralDeErros.Controllers
         public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            var user = new User()
-            {
-                Id = value.Id,
-                Login = value.Login,
-                Password = value.Password,
-                CreatedAt = value.CreatedAt,
-                Name = value.Name
-            };
+            var user = _mapper.Map<User>(value);
 
             var retorno = _userService.Salvar(user);
-            return Ok(retorno);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public ActionResult<UserDTO> Put([FromBody]UserDTO value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+
+            var user = _mapper.Map<User>(value);
+
+            var retorno = _userService.Salvar(user);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
+
+
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost]
+        public ActionResult Deletar([FromBody]List<UserDTO> users)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            foreach (var item in users)
+            {
+
+                var user = _userService.ProcurarPorId(item.Id);
+
+                if (user == null)
+                    return NotFound(item);
+
+                 _userService.Deletar(user);
+
+            }
+
+            return Ok();
         }
+                [HttpGet("getToken")]
+        public async Task<ActionResult<TokenResponse>> GetToken([FromBody]TokenDTO value)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // async request - await para aguardar retorno
+            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+
+            // nesta parte, temos um exemplo de requisição com o tipo "password" 
+            // esta é a forma mais comum
+            var httpClient = new HttpClient();
+            var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = "codenation.api_client",
+                ClientSecret = "codenation.api_secret",
+                UserName = value.UserName,
+                Password = value.Password,
+                Scope = "codenation"
+            });
+
+            // Se não tiver tiver um erro retornar token
+            if (!tokenResponse.IsError)
+            {
+                return Ok(tokenResponse);
+            }
+
+            //retorna não autorizado e descrição do erro
+            return Unauthorized(tokenResponse.ErrorDescription);
+        }
+
     }
 }

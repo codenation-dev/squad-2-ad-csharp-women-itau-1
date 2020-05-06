@@ -31,7 +31,7 @@ namespace CentralDeErros.DTO
         public string Environment { get; set; }
 
         [Required]
-        public byte Archived { get; set; }
+        public bool Archived { get; set; }
 
         [Required]
         public string LogId { get; set; }

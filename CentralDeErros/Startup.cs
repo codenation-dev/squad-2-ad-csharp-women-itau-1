@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using CentralDeErros.Filters;
-
+using System.Security.Claims;
 
 namespace CentralDeErros
 {
@@ -22,10 +22,14 @@ namespace CentralDeErros
     {
      
         public IConfiguration Configuration { get; }
+        public StartupIdentityServer IdentitServerStartup { get; }
         
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+             //config ambiente se não for teste
+            if (!environment.IsEnvironment("Testing"))
+                IdentitServerStartup = new StartupIdentityServer(environment);
 
         }
        
@@ -34,35 +38,38 @@ namespace CentralDeErros
         {
 
             services.AddMvcCore()
-                    .AddJsonFormatters()
-                    .AddApiExplorer()
-                    .AddVersionedApiExplorer(p =>
-                    {
-                        p.GroupNameFormat = "'v'VVV";
-                        p.SubstituteApiVersionInUrl = true;
-                    });
+               .AddAuthorization(opt => {
+                   opt.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Email, "ingrid@codenation.com"));
+               })
+               .AddJsonFormatters();
 
-
-            services.AddMvc(opt =>
-            {
-                opt.Filters.Add(typeof(ErrorResponseFilter));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            // config Identity por um método de extensão de IServiceCollection
-            services.AddIdentityConfiguration(Configuration);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+       
 
             services.AddDbContext<CentralErrosContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEventService, EventService>();
-            
-            // config versionamento
-            services.AddApiVersioning(p =>
-            {
-                p.DefaultApiVersion = new ApiVersion(1, 0);
-                p.ReportApiVersions = true;
-                p.AssumeDefaultVersionWhenUnspecified = true;
-            });
+
+            // config prop IdentitServerStartup
+            if (IdentitServerStartup != null)
+                IdentitServerStartup.ConfigureServices(services);
+
+            // config autenticação para API - jwt bearer 
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.Audience = "codenation";
+                });
+
+            //services.AddApiVersioning(p =>
+            //{
+            //    p.DefaultApiVersion = new ApiVersion(1, 0);
+            //    p.ReportApiVersions = true;
+            //    p.AssumeDefaultVersionWhenUnspecified = true;
+            //});
 
             // config desab validação de Model Sate automatica
             services.Configure<ApiBehaviorOptions>(opt =>
@@ -103,7 +110,7 @@ namespace CentralDeErros
         
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -114,18 +121,21 @@ namespace CentralDeErros
             app.UseSwagger();
 
             // swagger UI
-            app.UseSwaggerUI(options =>
-            {
+            //app.UseSwaggerUI(options =>
+            //{
                 //s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint(
-                    $"/swagger/{description.GroupName}/swagger.json",
-                    description.GroupName.ToUpperInvariant());
-                }
+                //foreach (var description in provider.ApiVersionDescriptions)
+                //{
+                    //options.SwaggerEndpoint(
+                    //$"/swagger/{description.GroupName}/swagger.json",
+                    //description.GroupName.ToUpperInvariant());
+                //}
 
-                options.DocExpansion(DocExpansion.List);
-            });
+                //options.DocExpansion(DocExpansion.List);
+            //});
+
+            if (IdentitServerStartup != null)
+                IdentitServerStartup.Configure(app, env);
 
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
