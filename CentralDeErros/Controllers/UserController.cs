@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -125,5 +127,37 @@ namespace CentralDeErros.Controllers
 
             return Ok(retorno);
         }
+                [HttpGet("getToken")]
+        public async Task<ActionResult<TokenResponse>> GetToken([FromBody]TokenDTO value)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // async request - await para aguardar retorno
+            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+
+            // nesta parte, temos um exemplo de requisição com o tipo "password" 
+            // esta é a forma mais comum
+            var httpClient = new HttpClient();
+            var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = "codenation.api_client",
+                ClientSecret = "codenation.api_secret",
+                UserName = value.UserName,
+                Password = value.Password,
+                Scope = "codenation"
+            });
+
+            // Se não tiver tiver um erro retornar token
+            if (!tokenResponse.IsError)
+            {
+                return Ok(tokenResponse);
+            }
+
+            //retorna não autorizado e descrição do erro
+            return Unauthorized(tokenResponse.ErrorDescription);
+        }
+
     }
 }
