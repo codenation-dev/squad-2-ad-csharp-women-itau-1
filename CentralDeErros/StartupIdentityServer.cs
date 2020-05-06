@@ -7,7 +7,7 @@ using IdentityServer4.Services;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 
-namespace CentralDeErros.ConfigStartup
+namespace CentralDeErros
 {
     public class StartupIdentityServer
     {
