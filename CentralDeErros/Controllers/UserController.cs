@@ -1,31 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CentralDeErros.Controllers
 {
+    
     [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //// GET: api/values
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/values/5
         [HttpGet("{id}")]
@@ -33,16 +42,10 @@ namespace CentralDeErros.Controllers
         {
             var user = _userService.ProcurarPorId(id);
 
-            if(user != null)
+            if (user != null)
             {
-                var retorno = new UserDTO()
-                {
-                    Id = user.Id,
-                    Login = user.Login,
-                    Password = user.Password,
-                    CreatedAt = user.CreatedAt,
-                    Name = user.Name
-                };
+                var retorno = _mapper.Map<UserDTO>(user);
+                
                 return Ok(retorno);
             }
             else
@@ -56,18 +59,13 @@ namespace CentralDeErros.Controllers
         public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            var user = new User()
-            {
-                Login = value.Login,
-                Password = value.Password,
-                CreatedAt = value.CreatedAt,
-                Name = value.Name
-            };
+            var user = _mapper.Map<User>(value);
 
             var retorno = _userService.Salvar(user);
-            return Ok(retorno);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
         }
 
         // PUT api/values/5
@@ -77,27 +75,21 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = new User()
-            {
-                Id = value.Id,
-                Login = value.Login,
-                Password = value.Password,
-                CreatedAt = value.CreatedAt,
-                Name = value.Name
-            };
+
+            var user = _mapper.Map<User>(value);
 
             var retorno = _userService.Salvar(user);
-            return Ok(retorno);
+
+            return Ok(_mapper.Map<UserDTO>(retorno));
+
+
         }
 
         [HttpPost]
-        public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
+        public ActionResult Deletar([FromBody]List<UserDTO> users)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-
-            var retorno = new List<UserDTO>();
-
 
             foreach (var item in users)
             {
@@ -107,19 +99,45 @@ namespace CentralDeErros.Controllers
                 if (user == null)
                     return NotFound(item);
 
-                var userAtual = _userService.Deletar(user);
+                 _userService.Deletar(user);
 
-                retorno.Add(new UserDTO()
-                {
-                    Id = userAtual.Id,
-                    Login = userAtual.Login,
-                    Password = userAtual.Password,
-                    CreatedAt = userAtual.CreatedAt,
-                    Name = userAtual.Name
-                });
             }
 
-            return Ok(retorno);
+            return Ok();
         }
+
+        [HttpGet("getToken")]
+        public async Task<ActionResult<TokenResponse>> GetToken([FromBody]TokenDTO value)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // async request - await para aguardar retorno
+            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
+
+            // nesta parte, temos um exemplo de requisição com o tipo "password" 
+            // esta é a forma mais comum
+            var httpClient = new HttpClient();
+
+            var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = "codenation.api_client",
+                ClientSecret = "codenation.api_secret",
+                UserName = value.UserName,
+                Password = value.Password,
+                Scope = "codenation"
+            });
+
+            // Se não tiver tiver um erro retornar token
+            if (!tokenResponse.IsError)
+            {
+                return Ok(tokenResponse);
+            }
+
+            //retorna não autorizado e descrição do erro
+            return Unauthorized(tokenResponse.ErrorDescription);
+        }
+
     }
 }

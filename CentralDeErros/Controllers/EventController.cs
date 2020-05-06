@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
+        private IMapper _mapper;
         private IEventService _eventService;
-        public EventController(IEventService eventService)
+
+        public EventController(IEventService eventService, IMapper mapper)
         {
             _eventService = eventService;
+            _mapper = mapper;
         }
 
         // GET api/values/5
@@ -23,23 +29,11 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Get(int id)
         {
             var evento = _eventService.ProcurarPorId(id);
-
+           
             if (evento != null)
             {
-                var retorno = new EventDTO()
-                {
-                    Id = evento.Id,
-                    Level = evento.Level,
-                    Archived = evento.Archived,
-                    CollectedBy = evento.CollectedBy,
-                    Data = evento.Data,
-                    Description = evento.Description,
-                    Environment = evento.Environment,
-                    Log = evento.Log,
-                    LogId = evento.LogId,
-                    Origin = evento.Origin,
-                    Title = evento.Title
-                };
+               var retorno = _mapper.Map<EventDTO>(evento);
+
                 return Ok(retorno);
             }
             else
@@ -55,22 +49,11 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var evento = new Event()
-            {
-                Level = value.Level,
-                Archived = value.Archived,
-                CollectedBy = value.CollectedBy,
-                Data = value.Data,
-                Description = value.Description,
-                Environment = value.Environment,
-                Log = value.Log,
-                LogId = value.LogId,
-                Origin = value.Origin,
-                Title = value.Title
-            };
-
+            var evento = _mapper.Map<Event>(value);
+         
             var retorno = _eventService.Salvar(evento);
-            return Ok(retorno);
+
+            return Ok(_mapper.Map<EventDTO>(retorno));
         }
 
         [HttpPut]
@@ -79,7 +62,9 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var evento = new Event()
+            var evento = _mapper.Map<Event>(value);
+
+          /*  var evento = new Event()
             {
                 Id = value.Id,
                 Level = value.Level,
@@ -92,10 +77,10 @@ namespace CentralDeErros.Controllers
                 LogId = value.LogId,
                 Origin = value.Origin,
                 Title = value.Title
-            };
+            };*/
 
             var retorno = _eventService.Salvar(evento);
-            return Ok(retorno);
+            return Ok(_mapper.Map<EventDTO>(retorno));
         }
 
         [HttpGet]
@@ -103,28 +88,10 @@ namespace CentralDeErros.Controllers
         {
             var eventos = _eventService.BuscarPorAmbiente(ambiente);
 
-            var retorno = new List<EventDTO>();
             if(eventos != null)
             {
-                foreach (var item in eventos)
-                {
-                    var retornoAux = new EventDTO()
-                    {
-                        Id = item.Id,
-                        Level = item.Level,
-                        Archived = item.Archived,
-                        CollectedBy = item.CollectedBy,
-                        Data = item.Data,
-                        Description = item.Description,
-                        Environment = item.Environment,
-                        Log = item.Log,
-                        LogId = item.LogId,
-                        Origin = item.Origin,
-                        Title = item.Title
-                    };
-
-                    retorno.Add(retornoAux);
-                }
+                var retorno = _mapper.Map<EventDTO>(eventos);
+           
 
                 return Ok(retorno);
             }
@@ -137,10 +104,12 @@ namespace CentralDeErros.Controllers
         {
             var eventos = _eventService.BuscarPorLevel(level, ambiente);
 
-            var retorno = new List<EventDTO>();
+            //var retorno = new List<EventDTO>();
+
             if (eventos != null)
             {
-                foreach (var item in eventos)
+                var retorno = _mapper.Map<EventDTO>(eventos);
+               /* foreach (var item in eventos)
                 {
                     var retornoAux = new EventDTO()
                     {
@@ -155,10 +124,10 @@ namespace CentralDeErros.Controllers
                         LogId = item.LogId,
                         Origin = item.Origin,
                         Title = item.Title
-                    };
+                    }; 
 
                     retorno.Add(retornoAux);
-                }
+                } */
 
                 return Ok(retorno);
             }
@@ -172,10 +141,12 @@ namespace CentralDeErros.Controllers
         {
             var eventos = _eventService.BuscarPorDescricao(descricao, ambiente);
 
-            var retorno = new List<EventDTO>();
+           // var retorno = new List<EventDTO>();
+
             if (eventos != null)
             {
-                foreach (var item in eventos)
+                var retorno = _mapper.Map<EventDTO>(eventos);
+               /* foreach (var item in eventos)
                 {
                     var retornoAux = new EventDTO()
                     {
@@ -193,7 +164,7 @@ namespace CentralDeErros.Controllers
                     };
 
                     retorno.Add(retornoAux);
-                }
+                } */
 
                 return Ok(retorno);
             }
@@ -207,10 +178,12 @@ namespace CentralDeErros.Controllers
 
             var eventos = _eventService.BuscarPorOrigem(origem, ambiente);
 
-            var retorno = new List<EventDTO>();
+           // var retorno = new List<EventDTO>();
+
             if (eventos != null)
             {
-                foreach (var item in eventos)
+                var retorno = _mapper.Map<EventDTO>(eventos);
+                /*foreach (var item in eventos)
                 {
                     var retornoAux = new EventDTO()
                     {
@@ -228,7 +201,7 @@ namespace CentralDeErros.Controllers
                     };
 
                     retorno.Add(retornoAux);
-                }
+                } */
 
                 return Ok(retorno);
             }
@@ -283,41 +256,44 @@ namespace CentralDeErros.Controllers
         //}
 
         [HttpPost]
-        public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> Arquivar([FromBody]EventDTO eventos)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            var retorno = new List<EventDTO>();
+            var arquivar = _mapper.Map<Event>(eventos);
 
+            var retorno = _eventService.ArquivarEvento(arquivar);
 
-            foreach (var item in eventos)
-            {
+            return Ok(_mapper.Map<EventDTO>(retorno));
 
-                var evento = _eventService.ProcurarPorId(item.Id);
+            /* var retorno = new List<EventDTO>();
 
-                if (evento == null)
-                    return NotFound(item);
+             foreach (var item in eventos)
+             {
 
-                var eventoAtual = _eventService.ArquivarEvento(evento);
+                 var evento = _eventService.ProcurarPorId(item.Id);
 
-                retorno.Add(new EventDTO()
-                {
-                    Id = eventoAtual.Id,
-                    Level = eventoAtual.Level,
-                    Archived = eventoAtual.Archived,
-                    CollectedBy = eventoAtual.CollectedBy,
-                    Data = eventoAtual.Data,
-                    Description = eventoAtual.Description,
-                    Environment = eventoAtual.Environment,
-                    Log = eventoAtual.Log,
-                    LogId = eventoAtual.LogId,
-                    Origin = eventoAtual.Origin,
-                    Title = eventoAtual.Title
-                });
-            }
+                 if (evento == null)
+                     return NotFound(item);
 
-            return Ok(retorno);
+                 var eventoAtual = _eventService.ArquivarEvento(evento);
+
+                 retorno.Add(new EventDTO()
+                 {
+                     Id = eventoAtual.Id,
+                     Level = eventoAtual.Level,
+                     Archived = eventoAtual.Archived,
+                     CollectedBy = eventoAtual.CollectedBy,
+                     Data = eventoAtual.Data,
+                     Description = eventoAtual.Description,
+                     Environment = eventoAtual.Environment,
+                     Log = eventoAtual.Log,
+                     LogId = eventoAtual.LogId,
+                     Origin = eventoAtual.Origin,
+                     Title = eventoAtual.Title
+                 });
+             }*/
         }
 
         [HttpPost]
@@ -326,36 +302,41 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var retorno = new List<EventDTO>();
+            var desarquivar = _mapper.Map<Event>(eventos);
+
+            var retorno = _eventService.DesarquivarEvento(desarquivar);
+
+            return Ok(_mapper.Map<EventDTO>(retorno));
 
 
-            foreach (var item in eventos)
-            {
+            /* var retorno = new List<EventDTO>();
 
-                var evento = _eventService.ProcurarPorId(item.Id);
+             foreach (var item in eventos)
+             {
 
-                if (evento == null)
-                    return NotFound(item);
+                 var evento = _eventService.ProcurarPorId(item.Id);
 
-                var eventoAtual = _eventService.DesarquivarEvento(evento);
+                 if (evento == null)
+                     return NotFound(item);
 
-                retorno.Add(new EventDTO()
-                {
-                    Id = eventoAtual.Id,
-                    Level = eventoAtual.Level,
-                    Archived = eventoAtual.Archived,
-                    CollectedBy = eventoAtual.CollectedBy,
-                    Data = eventoAtual.Data,
-                    Description = eventoAtual.Description,
-                    Environment = eventoAtual.Environment,
-                    Log = eventoAtual.Log,
-                    LogId = eventoAtual.LogId,
-                    Origin = eventoAtual.Origin,
-                    Title = eventoAtual.Title
-                });
-            }
+                 var eventoAtual = _eventService.DesarquivarEvento(evento);
 
-            return Ok(retorno);
+                 retorno.Add(new EventDTO()
+                 {
+                     Id = eventoAtual.Id,
+                     Level = eventoAtual.Level,
+                     Archived = eventoAtual.Archived,
+                     CollectedBy = eventoAtual.CollectedBy,
+                     Data = eventoAtual.Data,
+                     Description = eventoAtual.Description,
+                     Environment = eventoAtual.Environment,
+                     Log = eventoAtual.Log,
+                     LogId = eventoAtual.LogId,
+                     Origin = eventoAtual.Origin,
+                     Title = eventoAtual.Title
+                 });
+             } */
+
         }
 
 
@@ -365,38 +346,19 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var retorno = new List<EventDTO>();
-
 
             foreach (var item in eventos)
             {
-
                 var evento = _eventService.ProcurarPorId(item.Id);
 
                 if (evento == null)
                     return NotFound(item);
 
-                var eventoAtual = _eventService.Deletar(evento);
-
-                retorno.Add(new EventDTO()
-                {
-                    Id = eventoAtual.Id,
-                    Level = eventoAtual.Level,
-                    Archived = eventoAtual.Archived,
-                    CollectedBy = eventoAtual.CollectedBy,
-                    Data = eventoAtual.Data,
-                    Description = eventoAtual.Description,
-                    Environment = eventoAtual.Environment,
-                    Log = eventoAtual.Log,
-                    LogId = eventoAtual.LogId,
-                    Origin = eventoAtual.Origin,
-                    Title = eventoAtual.Title
-                });
+                _eventService.Deletar(evento);
             }
 
-            return Ok(retorno);
+            return Ok();
         }
-
-
+        // Esse comentario é apenas um teste para controle de versao 
     }
 }
