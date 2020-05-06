@@ -10,7 +10,7 @@ namespace CentralDeErros.Services
 {
     public class UserProfileService : IProfileService
     {
-        private  CentralErrosContext _context;
+        private readonly CentralErrosContext _context;
 
         // utilizar o mesmo banco atual
         public UserProfileService(CentralErrosContext context)
@@ -26,7 +26,7 @@ namespace CentralDeErros.Services
             // verificar se o token � nulo
             if (request != null)
             {
-                // buscar o usu�rio na base e add as respectivas claims
+                // buscar o usua    rio na base e add as respectivas claims
                 var user = _context.Users.FirstOrDefault(x => x.Login == request.UserName);
                 if (user != null)
                     context.AddRequestedClaims(GetUserClaims(user));

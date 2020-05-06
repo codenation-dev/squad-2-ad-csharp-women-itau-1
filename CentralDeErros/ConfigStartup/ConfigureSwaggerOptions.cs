@@ -1,8 +1,10 @@
+/*
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
+
 
 namespace CentralDeErros.ConfigStartup
 {
@@ -38,4 +40,4 @@ namespace CentralDeErros.ConfigStartup
             return info;
         }
     }
-}
+} */

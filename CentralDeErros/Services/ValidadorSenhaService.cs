@@ -8,7 +8,7 @@ namespace CentralDeErros.Services
 {
     public class ValidadorSenhaService : IResourceOwnerPasswordValidator
     {
-        private CentralErrosContext _context;
+        private readonly CentralErrosContext _context;
 
         // utilizar o mesmo banco atual
 
