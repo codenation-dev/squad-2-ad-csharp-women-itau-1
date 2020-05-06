@@ -4,7 +4,7 @@ using IdentityServer4.Test;
 using System.Security.Claims;
 using IdentityServer4;
 
-namespace CentralDeErros.ConfigStartup
+namespace CentralDeErros
 {
     public static class IdentityConfig
     {
