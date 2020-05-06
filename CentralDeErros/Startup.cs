@@ -43,9 +43,8 @@ namespace CentralDeErros
                })
                .AddJsonFormatters();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-       
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<CentralErrosContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
@@ -77,7 +76,7 @@ namespace CentralDeErros
                 opt.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            /*services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             // config swagger para gerar arquivo de documentação swagger.json
             services.AddSwaggerGen(c =>
@@ -95,7 +94,7 @@ namespace CentralDeErros
                     Description = "Insira o token JWT desta maneira: Bearer {seu token}"
                 });
                
-            });
+            }); */
 
             // config desab validação de Model State automatico
             services.Configure<ApiBehaviorOptions>
@@ -118,7 +117,7 @@ namespace CentralDeErros
             }
             
             // swagger
-            app.UseSwagger();
+          //  app.UseSwagger();
 
             // swagger UI
             //app.UseSwaggerUI(options =>

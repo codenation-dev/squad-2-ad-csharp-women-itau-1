@@ -8,17 +8,21 @@ using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CentralDeErros.Controllers
 {
+    
     [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
-        private IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
         public UserController(IUserService userService, IMapper mapper)
         {
@@ -102,7 +106,8 @@ namespace CentralDeErros.Controllers
 
             return Ok();
         }
-                [HttpGet("getToken")]
+
+        [HttpGet("getToken")]
         public async Task<ActionResult<TokenResponse>> GetToken([FromBody]TokenDTO value)
         {
             if (!ModelState.IsValid)
@@ -114,6 +119,7 @@ namespace CentralDeErros.Controllers
             // nesta parte, temos um exemplo de requisição com o tipo "password" 
             // esta é a forma mais comum
             var httpClient = new HttpClient();
+
             var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
