@@ -6,10 +6,12 @@ using AutoMapper;
 using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
@@ -30,7 +32,7 @@ namespace CentralDeErros.Controllers
            
             if (evento != null)
             {
-               var retorno = _mapper.Map<UserDTO>(evento);
+               var retorno = _mapper.Map<EventDTO>(evento);
 
                 return Ok(retorno);
             }

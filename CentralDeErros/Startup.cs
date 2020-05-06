@@ -71,10 +71,10 @@ namespace CentralDeErros
             //});
 
             // config desab validação de Model Sate automatica
-            services.Configure<ApiBehaviorOptions>(opt =>
-            {
-                opt.SuppressModelStateInvalidFilter = true;
-            });
+            //services.Configure<ApiBehaviorOptions>(opt =>
+            //{
+            //    opt.SuppressModelStateInvalidFilter = true;
+            //});
 
             /*services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
@@ -97,13 +97,13 @@ namespace CentralDeErros
             }); */
 
             // config desab validação de Model State automatico
-            services.Configure<ApiBehaviorOptions>
-            (
-                opt =>
-                {
-                    opt.SuppressModelStateInvalidFilter = true;
-                }
-            );
+            //services.Configure<ApiBehaviorOptions>
+            //(
+            //    opt =>
+            //    {
+            //        opt.SuppressModelStateInvalidFilter = true;
+            //    }
+            //);
         }
           
         

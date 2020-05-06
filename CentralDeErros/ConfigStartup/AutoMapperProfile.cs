@@ -10,6 +10,7 @@ namespace CentralDeErros.ConfigStartup
         public AutoMapperProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Event, EventDTO>().ReverseMap();
             /*
             CreateMap<Cliente, ClienteDTO>().ReverseMap();
             CreateMap<Produto, ProdutoJSONDTO>().ReverseMap();
