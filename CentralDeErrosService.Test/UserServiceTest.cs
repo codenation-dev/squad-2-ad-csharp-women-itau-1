@@ -1,5 +1,6 @@
 using CentralDeErros.Models;
 using CentralDeErros.Services;
+using CentralDeErrosService.Test.Comparers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace CentralDeErrosService.Test
 
         public UserServiceTest()
         {
-            _context = new CentralErrosContext(_baseContext.Options);
             _baseContext = new BaseContext();
+            _context = new CentralErrosContext(_baseContext.Options);
             _userService = new UserService(_context);
         }
 
@@ -29,11 +30,51 @@ namespace CentralDeErrosService.Test
 
             var atual = new User();
 
-            //metodo de teste
             var service = new UserService(_context);
             atual = service.Salvar(fakeUser);
 
-            //Assert
+            Assert.NotEqual(0, fakeUser.Id);
+        }
+
+        [Fact]
+        public void Devera_Retornar_User()
+        {
+            var expectedUser = _baseContext.GetTestData<User>().First();
+            expectedUser.Id = 1;
+
+            var atual = new User();
+
+            var service = new UserService(_context);
+            atual = service.ProcurarPorId(expectedUser.Id);
+
+            Assert.Equal(expectedUser, atual, new UserIdComparer());
+        }
+
+        [Fact]
+        public void Devera_Alterar_User()
+        {
+            var fakeUser = _baseContext.GetTestData<User>().First();
+            fakeUser.Id = 1;
+
+            var atual = new User();
+
+            var service = new UserService(_context);
+            atual = service.Salvar(fakeUser);
+
+            Assert.NotEqual(0, fakeUser.Id);
+        }
+
+        [Fact]
+        public void Devera_Deletar_User()
+        {
+            var fakeUser = _baseContext.GetTestData<User>().First();
+            fakeUser.Id = 2;
+
+            var atual = new User();
+
+            var service = new UserService(_context);
+            atual = service.Deletar(fakeUser);
+
             Assert.NotEqual(0, fakeUser.Id);
         }
     }
