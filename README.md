@@ -19,11 +19,20 @@
 - deve consumir a API do produto
 - desenvolvida na forma de uma Single Page Application
 
+> Status do Projeto: Em desenvolvimento
+
 ## Funcionalidades
 
 - Consultas logs de erro por ambiente de desenvolvimento, homologação e teste
 - Ordenação por level ou frequência
 - Buscas por level, descrição e origem
+- Arquivamento ou exclusão de logs
 
+## Deploy da Aplicação com Azure
 
+> 
 
+## Desenvolvedoras
+
+[<img src="srctoreadme/bruna.jpeg" width=115><br><sub>Bruna</sub>](https://github.com/beebones) |[<img src="srctoreadme/izabel.jpeg" width=115><br><sub>Izabel Pereira</sub>](https://github.com/chaihermes) | [<img src="srctoreadme/juliana.jpeg" width=115><br><sub>Juliana</sub>](https://github.com/Diana-ops) | [<img src="srctoreadme/margot.jpeg" width=115><br><sub>Margot Garcia</sub>](https://github.com/ahakawa) |
+| :---: | :---: | :---: | :---:
