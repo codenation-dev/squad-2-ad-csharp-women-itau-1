@@ -30,23 +30,33 @@ namespace CentralDeErrosService.Test
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Salvar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);
         }
 
         [Fact]
-        public void Devera_Retornar_User()
+        public void Devera_Retornar_User_Por_Id()
         {
             var expectedUser = _baseContext.GetTestData<User>().Where(x => x.Id == 4).FirstOrDefault();
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.ProcurarPorId(expectedUser.Id);
 
             Assert.Equal(expectedUser, atual, new UserIdComparer());
+        }
+
+        [Fact]
+        public void Devera_Retornar_User_Por_Login()
+        {
+            var login = _baseContext.GetTestData<User>().Where(x => x.Login == "juliana_squad2").FirstOrDefault();
+
+            var listaPorLogin = _userService.procurarPorLogin(login.Login);
+
+            Assert.NotNull(listaPorLogin);
         }
 
         [Fact]
@@ -56,7 +66,7 @@ namespace CentralDeErrosService.Test
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Salvar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);
@@ -70,7 +80,7 @@ namespace CentralDeErrosService.Test
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Deletar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);
