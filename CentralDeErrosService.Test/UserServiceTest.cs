@@ -25,7 +25,7 @@ namespace CentralDeErrosService.Test
         [Fact]
         public void Devera_Add_User()
         {
-            var fakeUser = _baseContext.GetTestData<User>().First();
+            var fakeUser = _baseContext.GetTestData<User>().Where(x => x.Id == 4).FirstOrDefault();
             fakeUser.Id = 0;
 
             var atual = new User();
@@ -39,8 +39,7 @@ namespace CentralDeErrosService.Test
         [Fact]
         public void Devera_Retornar_User()
         {
-            var expectedUser = _baseContext.GetTestData<User>().First();
-            expectedUser.Id = 1;
+            var expectedUser = _baseContext.GetTestData<User>().Where(x => x.Id == 4).FirstOrDefault();
 
             var atual = new User();
 
@@ -53,8 +52,7 @@ namespace CentralDeErrosService.Test
         [Fact]
         public void Devera_Alterar_User()
         {
-            var fakeUser = _baseContext.GetTestData<User>().First();
-            fakeUser.Id = 1;
+            var fakeUser = _baseContext.GetTestData<User>().Where(x => x.Id == 1).FirstOrDefault();
 
             var atual = new User();
 
@@ -68,7 +66,7 @@ namespace CentralDeErrosService.Test
         public void Devera_Deletar_User()
         {
             var fakeUser = _baseContext.GetTestData<User>().First();
-            fakeUser.Id = 2;
+            fakeUser.Id = 3;
 
             var atual = new User();
 
