@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentralDeErros.Migrations
 {
     [DbContext(typeof(CentralErrosContext))]
-    [Migration("20200507024708_identity4")]
+    [Migration("20200507212114_identity4")]
     partial class identity4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

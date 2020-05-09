@@ -20,4 +20,13 @@
     <ProjectReference Include="..\CentralDeErros\CentralDeErros.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestData\events.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestData\users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -23,7 +23,7 @@ namespace CentralDeErros.Models
 
                 optionsBuilder.UseSqlServer("Server=WIN-M8X17VUIO5\\TESTE;Database=CentralErros2; User Id =sa; Password=04011995;Trusted_Connection=False"); //Configurações Bruna
 
-                //@"Server=(localdb)\MSSQLLocalDB;Database=CentralDeErros;Integrated Security=True;") //Configurações juliana
+                //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CentralDeErros;Integrated Security=True;"); //Configurações juliana
             }
         }
 

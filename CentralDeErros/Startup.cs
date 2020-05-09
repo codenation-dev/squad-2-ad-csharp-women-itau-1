@@ -45,6 +45,12 @@ namespace CentralDeErros
                 opt.Filters.Add(typeof(ErrorResponseFilter));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddDbContext<CentralErrosContext>();
+            //services.AddAutoMapper(typeof(Startup));
+            //services.AddScoped<IUserService, UserService>();
+
+
             //services.AddDbContext<CentralErrosContext>();
             //services.AddAutoMapper(typeof(Startup));
             //services.AddScoped<IUserService, UserService>();

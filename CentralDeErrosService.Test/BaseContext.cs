@@ -27,14 +27,18 @@ namespace CentralDeErrosService.Test
 
         private string FileName<T>()
         {
-            return FileDataNames[typeof(T)];
+            var retorno = FileDataNames[typeof(T)];
+
+            return retorno;
         }
 
         public List<T> GetTestData<T>()
         {
             string content = File.ReadAllText(FileName<T>());
 
-            return JsonConvert.DeserializeObject<List<T>>(content);
+            var retorno = JsonConvert.DeserializeObject<List<T>>(content);
+
+            return retorno;            
         }
     }
 }

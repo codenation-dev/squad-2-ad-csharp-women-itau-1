@@ -14,7 +14,7 @@ namespace CentralDeErros.Services
         IList<Event> BuscarPorDescricao(string descricao, string ambiente);
         IList<Event> BuscarPorOrigem(string origem, string ambiente);
         IList<Event> OrdenarPorLevel(List<Event> eventos);
-        IList<Event> OrdenarPorFrequencia(int frequencia);
+        IList<Event> OrdenarPorFrequenciaDeLevel(List<Event> eventos);
         Event ArquivarEvento(Event evento);
         Event DesarquivarEvento(Event evento);
         Event Deletar(Event evento);

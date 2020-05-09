@@ -45,11 +45,21 @@ namespace CentralDeErros.Services
             return eventos.OrderBy(x => x.Level).ToList();
         }
 
-        public IList<Event> OrdenarPorFrequencia(int frequencia)
+        public IList<Event> OrdenarPorFrequenciaDeLevel(List<Event> eventos)
         {
-            throw new NotImplementedException();
-        }
+            var ordenacao = eventos.GroupBy(x => x.Level).Select(group => new
+            {
+                Level = group.Key,
+                Quantidade = group.Count()
+            }).OrderByDescending(x => x.Quantidade).ToList();
 
+            var ordenacaoLevels = ordenacao.Select(x => x.Level).ToList();
+
+            var retorno = eventos.OrderBy(x => ordenacaoLevels.IndexOf(x.Level)).ToList();
+
+            return retorno;
+
+        }
 
         public Event ArquivarEvento(Event evento)
         {
