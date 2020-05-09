@@ -15,8 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
-    
-    [Route("api/[controller]")]
+
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -55,7 +56,7 @@ namespace CentralDeErros.Controllers
         }
 
         // POST api/values
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public ActionResult<UserDTO> Post([FromBody]UserDTO value)
         {
             if (!ModelState.IsValid)
@@ -85,7 +86,7 @@ namespace CentralDeErros.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("deletar")]
         public ActionResult Deletar([FromBody]List<UserDTO> users)
         {
             if (!ModelState.IsValid)

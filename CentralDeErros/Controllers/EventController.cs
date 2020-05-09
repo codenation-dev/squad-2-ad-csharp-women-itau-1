@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
     [Authorize]
-    [Route("api/[controller]")]
     public class EventController : ControllerBase
     {
         private IMapper _mapper;
@@ -43,7 +45,7 @@ namespace CentralDeErros.Controllers
         }
 
         // POST api/values
-        [HttpPost]
+        [HttpPost("cadastrar")]
         public ActionResult<EventDTO> Post([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
@@ -56,7 +58,7 @@ namespace CentralDeErros.Controllers
             return Ok(_mapper.Map<EventDTO>(retorno));
         }
 
-        [HttpPut]
+        [HttpPut("atualizar")]
         public ActionResult<EventDTO> Put([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
@@ -83,7 +85,7 @@ namespace CentralDeErros.Controllers
             return Ok(_mapper.Map<EventDTO>(retorno));
         }
 
-        [HttpGet]
+        [HttpGet("listar")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorAmbiente(string ambiente)
         {
             var eventos = _eventService.BuscarPorAmbiente(ambiente);
@@ -99,7 +101,7 @@ namespace CentralDeErros.Controllers
             return NotFound();
         }
 
-        [HttpGet]
+        [HttpGet("listarPorLevel")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorLevel(string level, string ambiente)
         {
             var eventos = _eventService.BuscarPorLevel(level, ambiente);
@@ -136,7 +138,7 @@ namespace CentralDeErros.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("listarPorDescricao")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorDescricao(string descricao, string ambiente)
         {
             var eventos = _eventService.BuscarPorDescricao(descricao, ambiente);
@@ -172,7 +174,7 @@ namespace CentralDeErros.Controllers
             return NotFound();
         }
 
-        [HttpGet]
+        [HttpGet("listarPorOrigem")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorOrigem(string origem, string ambiente)
         {
 
@@ -255,7 +257,7 @@ namespace CentralDeErros.Controllers
 
         //}
 
-        [HttpPost]
+        [HttpPost("arquivar")]
         public ActionResult<EventDTO> Arquivar([FromBody]EventDTO eventos)
         {
             if (!ModelState.IsValid)
@@ -296,7 +298,7 @@ namespace CentralDeErros.Controllers
              }*/
         }
 
-        [HttpPost]
+        [HttpPost("desarquivar")]
         public ActionResult<EventDTO> Desarquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
@@ -340,7 +342,7 @@ namespace CentralDeErros.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("deletar")]
         public ActionResult<EventDTO> Deletar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
