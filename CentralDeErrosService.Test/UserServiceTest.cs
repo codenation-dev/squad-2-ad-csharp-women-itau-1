@@ -25,40 +25,48 @@ namespace CentralDeErrosService.Test
         [Fact]
         public void Devera_Add_User()
         {
-            var fakeUser = _baseContext.GetTestData<User>().First();
+            var fakeUser = _baseContext.GetTestData<User>().Where(x => x.Id == 4).FirstOrDefault();
             fakeUser.Id = 0;
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Salvar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);
         }
 
         [Fact]
-        public void Devera_Retornar_User()
+        public void Devera_Retornar_User_Por_Id()
         {
-            var expectedUser = _baseContext.GetTestData<User>().First();
-            expectedUser.Id = 1;
+            var expectedUser = _baseContext.GetTestData<User>().Where(x => x.Id == 4).FirstOrDefault();
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.ProcurarPorId(expectedUser.Id);
 
             Assert.Equal(expectedUser, atual, new UserIdComparer());
         }
 
         [Fact]
+        public void Devera_Retornar_User_Por_Login()
+        {
+            var login = _baseContext.GetTestData<User>().Where(x => x.Login == "juliana_squad2").FirstOrDefault();
+
+            var listaPorLogin = _userService.procurarPorLogin(login.Login);
+
+            Assert.NotNull(listaPorLogin);
+        }
+
+        [Fact]
         public void Devera_Alterar_User()
         {
-            var fakeUser = _baseContext.GetTestData<User>().First();
-            fakeUser.Id = 1;
+            var fakeUser = _baseContext.GetTestData<User>().Where(x => x.Id == 1).FirstOrDefault();
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Salvar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);
@@ -68,11 +76,11 @@ namespace CentralDeErrosService.Test
         public void Devera_Deletar_User()
         {
             var fakeUser = _baseContext.GetTestData<User>().First();
-            fakeUser.Id = 2;
+            fakeUser.Id = 3;
 
             var atual = new User();
 
-            var service = new UserService(_context);
+            var service = _userService;
             atual = service.Deletar(fakeUser);
 
             Assert.NotEqual(0, fakeUser.Id);

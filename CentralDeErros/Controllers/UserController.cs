@@ -15,8 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
-    
-    [Route("api/[controller]")]
+
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -103,6 +104,7 @@ namespace CentralDeErros.Controllers
 
         }
 
+
         [HttpPost]
         public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
         {
@@ -122,40 +124,7 @@ namespace CentralDeErros.Controllers
             }
 
             return Ok();
-        }
-
-        [HttpGet("getToken")]
-        public async Task<ActionResult<TokenResponse>> GetToken([FromBody]TokenDTO value)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            // async request - await para aguardar retorno
-            var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
-
-            // nesta parte, temos um exemplo de requisição com o tipo "password" 
-            // esta é a forma mais comum
-            var httpClient = new HttpClient();
-
-            var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
-            {
-                Address = disco.TokenEndpoint,
-                ClientId = "codenation.api_client",
-                ClientSecret = "codenation.api_secret",
-                UserName = value.UserName,
-                Password = value.Password,
-                Scope = "codenation"
-            });
-
-            // Se não tiver tiver um erro retornar token
-            if (!tokenResponse.IsError)
-            {
-                return Ok(tokenResponse);
-            }
-
-            //retorna não autorizado e descrição do erro
-            return Unauthorized(tokenResponse.ErrorDescription);
-        }
+        }       
 
     }
 }

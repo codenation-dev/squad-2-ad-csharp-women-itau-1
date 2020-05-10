@@ -4,7 +4,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentralDeErros", "CentralDeErros\CentralDeErros.csproj", "{C99558FB-CAF2-4DC4-AE14-0CCDEE26F6C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralDeErrosService.Test", "CentralDeErrosService.Test\CentralDeErrosService.Test.csproj", "{65B9689C-C84E-43B4-AD2D-77CE14C15974}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CentralDeErrosService.Test", "CentralDeErrosService.Test\CentralDeErrosService.Test.csproj", "{65B9689C-C84E-43B4-AD2D-77CE14C15974}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentralDeErros.Controller.Test", "CentralDeErros.Controller.Test\CentralDeErros.Controller.Test.csproj", "{FF5B7A6B-5334-4D1C-B722-A6D087F5095B}"
 EndProject

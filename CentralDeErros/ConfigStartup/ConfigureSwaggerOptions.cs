@@ -1,10 +1,8 @@
-/*
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
-
 
 namespace CentralDeErros.ConfigStartup
 {
@@ -28,8 +26,8 @@ namespace CentralDeErros.ConfigStartup
             {
                 Title = "API - Loja OnLine",
                 Version = "v1",
-                Description = "Esta API é responsavel pelo gerenciamento do sistema de Central de Erros",
-                Contact = new Contact() { Name = "Squad 2", Email = " " }
+                Description = "Esta API é responsavel pelo gerenciamento do sistema de loja OnLine",
+                Contact = new Contact() { Name = "Ingrid Costa!!!!", Email = "ingrid@mail.com" }
             };
 
             if (description.IsDeprecated)
@@ -40,4 +38,4 @@ namespace CentralDeErros.ConfigStartup
             return info;
         }
     }
-} */
+}
