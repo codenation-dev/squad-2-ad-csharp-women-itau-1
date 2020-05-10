@@ -29,6 +29,8 @@ namespace CentralDeErros.Controllers
             _mapper = mapper;
         }
 
+       
+
         //// GET: api/values
         //[HttpGet]
         //public IEnumerable<string> Get()
@@ -53,17 +55,33 @@ namespace CentralDeErros.Controllers
                 return NotFound();
             }
         }
+        [HttpGet("{id}")]
+        public ActionResult<UserDTO> GetLogin(string login)
+        {
+            var user = _userService.procurarPorLogin(login);
+
+            if (user != null)
+            {
+                var retorno = _mapper.Map<List<UserDTO>>(user);
+
+                return Ok(retorno);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         // POST api/values
         [HttpPost]
-        public ActionResult<UserDTO> Post([FromBody]UserDTO value)
+        public ActionResult<UserDTO> Post([FromBody]UserDTO user)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = _mapper.Map<User>(value);
+            var users = _mapper.Map<User>(user);
 
-            var retorno = _userService.Salvar(user);
+            var retorno = _userService.Salvar(users);
 
             return Ok(_mapper.Map<UserDTO>(retorno));
         }
@@ -86,7 +104,7 @@ namespace CentralDeErros.Controllers
         }
 
         [HttpPost]
-        public ActionResult Deletar([FromBody]List<UserDTO> users)
+        public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

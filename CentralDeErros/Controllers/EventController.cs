@@ -256,7 +256,7 @@ namespace CentralDeErros.Controllers
         //}
 
         [HttpPost]
-        public ActionResult<EventDTO> Arquivar([FromBody]EventDTO eventos)
+        public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -265,7 +265,7 @@ namespace CentralDeErros.Controllers
 
             var retorno = _eventService.ArquivarEvento(arquivar);
 
-            return Ok(_mapper.Map<EventDTO>(retorno));
+            return Ok(_mapper.Map<List<EventDTO>>(retorno));
 
             /* var retorno = new List<EventDTO>();
 
@@ -304,40 +304,41 @@ namespace CentralDeErros.Controllers
 
             var desarquivar = _mapper.Map<Event>(eventos);
 
-            var retorno = _eventService.DesarquivarEvento(desarquivar);
 
-            return Ok(_mapper.Map<EventDTO>(retorno));
+           //  var retorno = new List<EventDTO>();
 
+            foreach (var item in eventos)
+            {
 
-            /* var retorno = new List<EventDTO>();
+                var evento = _eventService.ProcurarPorId(item.Id);
 
-             foreach (var item in eventos)
-             {
+                if (evento == null)
+                    return NotFound(item);
 
-                 var evento = _eventService.ProcurarPorId(item.Id);
+                var retorno = _eventService.DesarquivarEvento(desarquivar);
+            }
 
-                 if (evento == null)
-                     return NotFound(item);
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
-                 var eventoAtual = _eventService.DesarquivarEvento(evento);
+            /*
 
-                 retorno.Add(new EventDTO()
-                 {
-                     Id = eventoAtual.Id,
-                     Level = eventoAtual.Level,
-                     Archived = eventoAtual.Archived,
-                     CollectedBy = eventoAtual.CollectedBy,
-                     Data = eventoAtual.Data,
-                     Description = eventoAtual.Description,
-                     Environment = eventoAtual.Environment,
-                     Log = eventoAtual.Log,
-                     LogId = eventoAtual.LogId,
-                     Origin = eventoAtual.Origin,
-                     Title = eventoAtual.Title
-                 });
-             } */
-
+            retorno.Add(new EventDTO()
+            {
+                Id = eventoAtual.Id,
+                Level = eventoAtual.Level,
+                Archived = eventoAtual.Archived,
+                CollectedBy = eventoAtual.CollectedBy,
+                Data = eventoAtual.Data,
+                Description = eventoAtual.Description,
+                Environment = eventoAtual.Environment,
+                Log = eventoAtual.Log,
+                LogId = eventoAtual.LogId,
+                Origin = eventoAtual.Origin,
+                Title = eventoAtual.Title
+            });*/
         }
+
+    }
 
 
         [HttpPost]

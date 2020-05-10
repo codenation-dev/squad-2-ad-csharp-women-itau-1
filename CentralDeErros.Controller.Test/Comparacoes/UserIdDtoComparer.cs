@@ -1,12 +1,11 @@
-﻿using CentralDeErros.DTO;
-using CentralDeErros.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using CentralDeErros.DTO;
 
-namespace CentralDeErrosService.Test.Comparers
+
+namespace CentralDeErros.Controller.Test.Comparacoes
 {
-    public class UserIdComparer : IEqualityComparer<UserDTO>
+    public class UserIdDtoComparer : IEqualityComparer<UserDTO>
     {
         public bool Equals(UserDTO x, UserDTO y)
         {
