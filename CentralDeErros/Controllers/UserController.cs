@@ -56,7 +56,7 @@ namespace CentralDeErros.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("login/{id}")]
         public ActionResult<UserDTO> GetLogin(string login)
         {
             var user = _userService.procurarPorLogin(login);
@@ -74,7 +74,7 @@ namespace CentralDeErros.Controllers
         }
 
         // POST api/values
-        [HttpPost]
+        [HttpPost("Adicionar")]
         public ActionResult<UserDTO> Post([FromBody]UserDTO user)
         {
             if (!ModelState.IsValid)
@@ -105,7 +105,7 @@ namespace CentralDeErros.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("Deletar")]
         public ActionResult<UserDTO> Deletar([FromBody]List<UserDTO> users)
         {
             if (!ModelState.IsValid)
