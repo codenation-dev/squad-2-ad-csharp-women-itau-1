@@ -1,5 +1,14 @@
 # Central de Erros 
 
+## Desenvolvedoras
+
+[<img src="srctoreadme/bruna.jpeg" width=115><br><sub>Bruna Silva</sub>](https://github.com/brunasouza2) |[<img src="srctoreadme/izabel.jpeg" width=115><br><sub>Izabel Pereira</sub>](https://github.com/izabel-neta) | [<img src="srctoreadme/juliana.jpeg" width=115><br><sub>Juliana Zacharias</sub>](https://github.com/juliananovais08) | [<img src="srctoreadme/margot.jpeg" width=115><br><sub>Margot Garcia</sub>](https://github.com/margotpaon) |
+| :---: | :---: | :---: | :---:
+
+> Status do Projeto: Em desenvolvimento
+
+> [Deploy da Aplicação com Azure]()
+
 ## Objetivo
 
 <p align="justify">Em projetos modernos é cada vez mais comum o uso de arquiteturas baseadas em serviços ou microsserviços. Nestes ambientes complexos, erros podem surgir em diferentes camadas da aplicação (backend, frontend, mobile, desktop) e mesmo em serviços distintos. Desta forma, é muito importante que os desenvolvedores possam centralizar todos os registros de erros em um local, de onde podem monitorar e tomar decisões mais acertadas. Neste projeto vamos implementar um sistema para centralizar registros de erros de aplicações.</p>
@@ -19,8 +28,6 @@
 - deve consumir a API do produto
 - desenvolvida na forma de uma Single Page Application
 
-> Status do Projeto: Em desenvolvimento
-
 ## Funcionalidades
 
 - Consultas logs de erro por ambiente de desenvolvimento, homologação e teste
@@ -28,11 +35,12 @@
 - Buscas por level, descrição e origem
 - Arquivamento ou exclusão de logs
 
-## Deploy da Aplicação com Azure
+## Linguagens, ferramentas e libs utilizadas
 
-> 
-
-## Desenvolvedoras
-
-[<img src="srctoreadme/bruna.jpeg" width=115><br><sub>Bruna</sub>](https://github.com/beebones) |[<img src="srctoreadme/izabel.jpeg" width=115><br><sub>Izabel Pereira</sub>](https://github.com/chaihermes) | [<img src="srctoreadme/juliana.jpeg" width=115><br><sub>Juliana</sub>](https://github.com/Diana-ops) | [<img src="srctoreadme/margot.jpeg" width=115><br><sub>Margot Garcia</sub>](https://github.com/ahakawa) |
-| :---: | :---: | :---: | :---:
+- [C#]()
+- [.NET CORE](https://dotnet.microsoft.com/download): versão 2.2
+- [SQL SERVER](https://www.microsoft.com/pt-br/download/details.aspx?id=55994): versão 2017 express
+- [Entity Framework SQL Server](): versão 2.2.6
+- [Identity Server](): versão 2.5.3
+- [Swagger](): versão
+  

@@ -7,11 +7,13 @@ using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
     [ApiVersion("1.0")]
+    [EnableCors("Development")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
@@ -92,6 +94,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
+<<<<<<< HEAD
                 var retorno = _mapper.Map<EventDTO>(eventos);
 
 
@@ -112,6 +115,50 @@ namespace CentralDeErros.Controllers
             {
                 var retorno = _mapper.Map<EventDTO>(eventos);
                 /* foreach (var item in eventos)
+=======
+                //var retorno = _mapper.Map<EventDTO>(eventos);
+
+                var retorno = new List<EventDTO>();
+                foreach (var item in eventos)
+                {
+                    var retornoAux = new EventDTO()
+                    {
+                        Id = item.Id,
+                        Level = item.Level,
+                        Archived = item.Archived,
+                        CollectedBy = item.CollectedBy,
+                        Data = item.Data,
+                        Description = item.Description,
+                        Environment = item.Environment,
+                        Log = item.Log,
+                        LogId = item.LogId,
+                        Origin = item.Origin,
+                        Title = item.Title
+                    };
+
+                    retorno.Add(retornoAux);
+                }
+
+
+                return Ok(retorno);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet("listarPorLevel")]
+        public ActionResult<IEnumerable<EventDTO>> ListarPorLevel(string level, string ambiente)
+        {
+            var eventos = _eventService.BuscarPorLevel(level, ambiente);
+
+            //var retorno = new List<EventDTO>();
+
+            if (eventos != null)
+            {
+                //var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = new List<EventDTO>();
+                foreach (var item in eventos)
+>>>>>>> master
                  {
                      var retornoAux = new EventDTO()
                      {
@@ -129,7 +176,11 @@ namespace CentralDeErros.Controllers
                      }; 
 
                      retorno.Add(retornoAux);
+<<<<<<< HEAD
                  } */
+=======
+                 } 
+>>>>>>> master
 
                 return Ok(retorno);
             }
