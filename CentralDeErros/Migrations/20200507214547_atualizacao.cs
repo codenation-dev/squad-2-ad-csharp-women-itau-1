@@ -2,7 +2,7 @@
 
 namespace CentralDeErros.Migrations
 {
-    public partial class modelevent : Migration
+    public partial class atualizacao : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
