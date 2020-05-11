@@ -7,11 +7,13 @@ using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
     [ApiVersion("1.0")]
+    [EnableCors("Development")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
@@ -92,8 +94,29 @@ namespace CentralDeErros.Controllers
 
             if(eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
-           
+                //var retorno = _mapper.Map<EventDTO>(eventos);
+
+                var retorno = new List<EventDTO>();
+                foreach (var item in eventos)
+                {
+                    var retornoAux = new EventDTO()
+                    {
+                        Id = item.Id,
+                        Level = item.Level,
+                        Archived = item.Archived,
+                        CollectedBy = item.CollectedBy,
+                        Data = item.Data,
+                        Description = item.Description,
+                        Environment = item.Environment,
+                        Log = item.Log,
+                        LogId = item.LogId,
+                        Origin = item.Origin,
+                        Title = item.Title
+                    };
+
+                    retorno.Add(retornoAux);
+                }
+
 
                 return Ok(retorno);
             }
@@ -110,26 +133,27 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
-               /* foreach (var item in eventos)
-                {
-                    var retornoAux = new EventDTO()
-                    {
-                        Id = item.Id,
-                        Level = item.Level,
-                        Archived = item.Archived,
-                        CollectedBy = item.CollectedBy,
-                        Data = item.Data,
-                        Description = item.Description,
-                        Environment = item.Environment,
-                        Log = item.Log,
-                        LogId = item.LogId,
-                        Origin = item.Origin,
-                        Title = item.Title
-                    }; 
+                //var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = new List<EventDTO>();
+                foreach (var item in eventos)
+                 {
+                     var retornoAux = new EventDTO()
+                     {
+                         Id = item.Id,
+                         Level = item.Level,
+                         Archived = item.Archived,
+                         CollectedBy = item.CollectedBy,
+                         Data = item.Data,
+                         Description = item.Description,
+                         Environment = item.Environment,
+                         Log = item.Log,
+                         LogId = item.LogId,
+                         Origin = item.Origin,
+                         Title = item.Title
+                     }; 
 
-                    retorno.Add(retornoAux);
-                } */
+                     retorno.Add(retornoAux);
+                 } 
 
                 return Ok(retorno);
             }
