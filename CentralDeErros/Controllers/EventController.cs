@@ -94,9 +94,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-<<<<<<< HEAD
                 var retorno = _mapper.Map<EventDTO>(eventos);
-
 
                 return Ok(retorno);
             }
@@ -115,7 +113,6 @@ namespace CentralDeErros.Controllers
             {
                 var retorno = _mapper.Map<EventDTO>(eventos);
                 /* foreach (var item in eventos)
-=======
                 //var retorno = _mapper.Map<EventDTO>(eventos);
 
                 var retorno = new List<EventDTO>();
@@ -137,7 +134,7 @@ namespace CentralDeErros.Controllers
                     };
 
                     retorno.Add(retornoAux);
-                }
+                }*/
 
 
                 return Ok(retorno);
@@ -146,7 +143,7 @@ namespace CentralDeErros.Controllers
             return NotFound();
         }
 
-        [HttpGet("listarPorLevel")]
+        /*[HttpGet("listarPorLevel")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorLevel(string level, string ambiente)
         {
             var eventos = _eventService.BuscarPorLevel(level, ambiente);
@@ -158,7 +155,7 @@ namespace CentralDeErros.Controllers
                 //var retorno = _mapper.Map<EventDTO>(eventos);
                 var retorno = new List<EventDTO>();
                 foreach (var item in eventos)
->>>>>>> master
+
                  {
                      var retornoAux = new EventDTO()
                      {
@@ -176,18 +173,18 @@ namespace CentralDeErros.Controllers
                      }; 
 
                      retorno.Add(retornoAux);
-<<<<<<< HEAD
-                 } */
-=======
+
                  } 
->>>>>>> master
+
+                 } 
+
 
                 return Ok(retorno);
             }
 
             return NotFound();
 
-        }
+        }*/
 
         [HttpGet("listarPorDescricao")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorDescricao(string descricao, string ambiente)
