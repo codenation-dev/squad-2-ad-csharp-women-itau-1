@@ -51,10 +51,10 @@ namespace CentralDeErros
             //services.AddScoped<IUserService, UserService>();
 
 
-            //services.AddDbContext<CentralErrosContext>();
-            //services.AddAutoMapper(typeof(Startup));
-            //services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IEventService, EventService>();
+            services.AddDbContext<CentralErrosContext>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEventService, EventService>();
 
             // config Identity por um método de extensão de IServiceCollection
             services.AddIdentityConfiguration(Configuration);
