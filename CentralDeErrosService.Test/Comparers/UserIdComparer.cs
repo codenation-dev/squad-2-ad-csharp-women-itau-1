@@ -1,4 +1,5 @@
-﻿using CentralDeErros.Models;
+﻿using CentralDeErros.DTO;
+using CentralDeErros.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

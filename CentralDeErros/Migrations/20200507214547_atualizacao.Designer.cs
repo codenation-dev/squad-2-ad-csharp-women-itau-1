@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CentralDeErros.Migrations
 {
     [DbContext(typeof(CentralErrosContext))]
-    [Migration("20200506231504_model-event")]
-    partial class modelevent
+    [Migration("20200507214547_atualizacao")]
+    partial class atualizacao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
