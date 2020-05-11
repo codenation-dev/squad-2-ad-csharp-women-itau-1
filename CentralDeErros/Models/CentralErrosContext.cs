@@ -8,6 +8,7 @@ namespace CentralDeErros.Models
     public class CentralErrosContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+
         public DbSet<Event> Events { get; set; }
 
         public CentralErrosContext(DbContextOptions<CentralErrosContext> options) : base(options)
@@ -19,6 +20,8 @@ namespace CentralDeErros.Models
             //confirmação de configuraão para utilizar com In Memory Database
             if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=TesteDB; User Id = sa; Password=Jullia@3005;Trusted_Connection=False");
+
                 //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CentralDeErros;Integrated Security=True;");
 
                 //optionsBuilder.UseSqlServer("Server=WIN-M8X17VUIO5\\TESTE;Database=CentralErros2; User Id =sa; Password=04011995;Trusted_Connection=False"); //Configurações Bruna
