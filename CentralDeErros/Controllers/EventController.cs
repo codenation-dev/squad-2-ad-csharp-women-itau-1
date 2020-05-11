@@ -298,7 +298,7 @@ namespace CentralDeErros.Controllers
         //    return Ok(retorno);
         //}
 
-        [HttpGet]
+        [HttpGet("OrdernarPorLevel")]
         public ActionResult<EventDTO> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
@@ -312,7 +312,8 @@ namespace CentralDeErros.Controllers
 
             
         }
-      [HttpGet]
+
+        [HttpGet("OrdenarPorFrequenciaDeLevel")]
         public ActionResult<EventDTO> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
@@ -326,7 +327,7 @@ namespace CentralDeErros.Controllers
 
         }
         
-        [HttpPost]
+        [HttpPost("Arquivar")]
         public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
