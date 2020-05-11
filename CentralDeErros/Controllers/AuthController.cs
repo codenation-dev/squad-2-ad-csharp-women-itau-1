@@ -34,11 +34,11 @@ namespace CentralDeErros.Controllers
             _appSettings = appSettings.Value;
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public async Task<ActionResult> Get()
         {
             return Ok("Teste autorização Ok!!!");
-        }
+        }*/
 
         [HttpPost("cadastrar")]
         [AllowAnonymous]
