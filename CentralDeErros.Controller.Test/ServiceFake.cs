@@ -139,7 +139,16 @@ namespace CentralDeErros.Controller.Test
                        return events;
                    });
 
-                 service.Setup(x => x.Salvar(It.IsAny<Event>())).
+                service.Setup(x => x.DesarquivarEvento(It.IsAny<Event>())).
+                    Returns((Event events) =>
+                    {
+
+                          events.Desarquivar();
+
+                             return events;
+                    });
+
+               service.Setup(x => x.Salvar(It.IsAny<Event>())).
                    Returns((Event evento) =>
                                {
                                    if (evento.Id == 0)
@@ -164,6 +173,6 @@ namespace CentralDeErros.Controller.Test
 
 
             #endregion 
-        }
+        
     }
 }

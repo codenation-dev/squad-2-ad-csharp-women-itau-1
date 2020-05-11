@@ -6,14 +6,14 @@ using System.Text;
 
 namespace CentralDeErrosService.Test.Comparers
 {
-    public class UserIdComparer : IEqualityComparer<UserDTO>
+    public class UserIdComparer : IEqualityComparer<User>
     {
-        public bool Equals(UserDTO x, UserDTO y)
+        public bool Equals(User x, User y)
         {
             return x.Id == y.Id;
         }
 
-        public int GetHashCode(UserDTO obj)
+        public int GetHashCode(User obj)
         {
             return obj.GetHashCode();
         }

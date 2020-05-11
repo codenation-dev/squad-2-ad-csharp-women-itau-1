@@ -71,7 +71,6 @@ namespace CentralDeErros.Controller.Test
         public void Devera_Retornar_Get_Por_login()
         {
 
-
             var service = _serviceFake.FakeUser().Object;
 
          //   var nomeLogin = "izabel_squad2";
@@ -150,17 +149,17 @@ namespace CentralDeErros.Controller.Test
             Assert.Equal(expected.CreatedAt, actual.CreatedAt);
 
         }
-        [Fact]
-        public void Devera_Retornar_Get_Deletar_User()
+       /* [Fact]
+        public void Devera_Retornar_Deletar_Users()
         {
 
             var service = _serviceFake.FakeUser().Object;
 
-            var esperado = _serviceFake.Mapper.Map<UserDTO>(service.Deletar(1));
+            var esperado = _serviceFake.Mapper.Map<UserDTO>(service.Deletar(evento));
 
             var controle = new UserController(service, _serviceFake.Mapper);
 
-            var resultado = controle.Get(1);
+            var resultado = controle.Deletar();
 
 
             Assert.IsType<OkObjectResult>(resultado.Result);
@@ -173,7 +172,7 @@ namespace CentralDeErros.Controller.Test
 
             Assert.Equal(esperado, userAtual, new UserIdDtoComparer());
         }
-
+        */
 
     }
 }
