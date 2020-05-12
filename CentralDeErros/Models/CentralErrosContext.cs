@@ -28,7 +28,7 @@ namespace CentralDeErros.Models
 
                 //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CentralDeErros;Integrated Security=True;"); //Configurações juliana
 
-                optionsBuilder.UseSqlServer(@"Server=tcp:codenation.database.windows.net,1433; Initial Catalog=centralDeErros; Persist Security Info =False; User ID =b.de.souza.silva; Password=nDDD1844; MultipleActiveResultSets = False; Encrypt =True; TrustServerCertificate =False; Connection Timeout =30;");
+                optionsBuilder.UseSqlServer(@"Server=tcp:dev-quad2.database.windows.net,1433;Initial Catalog=CentralDeErros;Persist Security Info=False;User ID=bruna.ssouza2;Password=nDDD1844;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 

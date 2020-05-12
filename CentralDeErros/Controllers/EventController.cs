@@ -111,32 +111,13 @@ namespace CentralDeErros.Controllers
             if (eventos != null)
             {
                 var retorno = _mapper.Map<List<EventDTO>>(eventos);
-                /* foreach (var item in eventos)
-                 {
-                     var retornoAux = new EventDTO()
-                     {
-                         Id = item.Id,
-                         Level = item.Level,
-                         Archived = item.Archived,
-                         CollectedBy = item.CollectedBy,
-                         Data = item.Data,
-                         Description = item.Description,
-                         Environment = item.Environment,
-                         Log = item.Log,
-                         LogId = item.LogId,
-                         Origin = item.Origin,
-                         Title = item.Title
-                     }; 
-
-                     retorno.Add(retornoAux);
-                 } */
-
                 return Ok(retorno);
             }
 
             return NotFound();
-
         }
+
+        
 
         [HttpGet("listarPorDescricao")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorDescricao(string descricao, string ambiente)
@@ -212,11 +193,11 @@ namespace CentralDeErros.Controllers
 
         }
 
-        [HttpGet]
-        public ActionResult<List<EventDTO>> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
+        [HttpGet("OrdernarPorLevel")]
+        public ActionResult<EventDTO> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
         {
-           // if (!ModelState.IsValid)
-             //   return BadRequest();
+           if (!ModelState.IsValid)
+                return BadRequest();
 
             var ordenar = _mapper.Map<List<Event>>(eventos);
 
@@ -226,8 +207,10 @@ namespace CentralDeErros.Controllers
 
             
         }
+
       [HttpGet]
         public ActionResult<List<EventDTO>> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
+
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -240,7 +223,7 @@ namespace CentralDeErros.Controllers
 
         }
         
-        [HttpPost]
+        [HttpPost("Arquivar")]
         public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
