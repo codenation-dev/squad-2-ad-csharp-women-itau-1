@@ -7,13 +7,11 @@ using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
     [ApiVersion("1.0")]
-    [EnableCors("Development")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
@@ -94,8 +92,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-<<<<<<< HEAD
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
 
 
                 return Ok(retorno);
@@ -113,52 +110,8 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 /* foreach (var item in eventos)
-=======
-                //var retorno = _mapper.Map<EventDTO>(eventos);
-
-                var retorno = new List<EventDTO>();
-                foreach (var item in eventos)
-                {
-                    var retornoAux = new EventDTO()
-                    {
-                        Id = item.Id,
-                        Level = item.Level,
-                        Archived = item.Archived,
-                        CollectedBy = item.CollectedBy,
-                        Data = item.Data,
-                        Description = item.Description,
-                        Environment = item.Environment,
-                        Log = item.Log,
-                        LogId = item.LogId,
-                        Origin = item.Origin,
-                        Title = item.Title
-                    };
-
-                    retorno.Add(retornoAux);
-                }
-
-
-                return Ok(retorno);
-            }
-
-            return NotFound();
-        }
-
-        [HttpGet("listarPorLevel")]
-        public ActionResult<IEnumerable<EventDTO>> ListarPorLevel(string level, string ambiente)
-        {
-            var eventos = _eventService.BuscarPorLevel(level, ambiente);
-
-            //var retorno = new List<EventDTO>();
-
-            if (eventos != null)
-            {
-                //var retorno = _mapper.Map<EventDTO>(eventos);
-                var retorno = new List<EventDTO>();
-                foreach (var item in eventos)
->>>>>>> master
                  {
                      var retornoAux = new EventDTO()
                      {
@@ -176,11 +129,7 @@ namespace CentralDeErros.Controllers
                      }; 
 
                      retorno.Add(retornoAux);
-<<<<<<< HEAD
                  } */
-=======
-                 } 
->>>>>>> master
 
                 return Ok(retorno);
             }
@@ -198,7 +147,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 /* foreach (var item in eventos)
                  {
                      var retornoAux = new EventDTO()
@@ -235,7 +184,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 /*foreach (var item in eventos)
                 {
                     var retornoAux = new EventDTO()
@@ -263,49 +212,11 @@ namespace CentralDeErros.Controllers
 
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<EventDTO>> OrdenarListaPorLevel(List<Event> eventos)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest();
-
-        //    var retorno = new List<EventDTO>();
-
-
-        //    foreach (var item in eventos)
-        //    {
-
-        //        var evento = _eventService.ProcurarPorId(item.Id);
-
-        //        if (evento == null)
-        //            return NotFound(item);
-
-        //        var eventoAtual = _eventService.OrdenarPorLevel(eventos);
-
-        //        retorno.Add(new EventDTO()
-        //        {
-        //            Id = eventoAtual.Id,
-        //            Level = eventoAtual.Level,
-        //            Archived = eventoAtual.Archived,
-        //            CollectedBy = eventoAtual.CollectedBy,
-        //            Data = eventoAtual.Data,
-        //            Description = eventoAtual.Description,
-        //            Environment = eventoAtual.Environment,
-        //            Log = eventoAtual.Log,
-        //            LogId = eventoAtual.LogId,
-        //            Origin = eventoAtual.Origin,
-        //            Title = eventoAtual.Title
-        //        });
-        //    }
-
-        //    return Ok(retorno);
-        //}
-
         [HttpGet]
-        public ActionResult<EventDTO> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
+        public ActionResult<List<EventDTO>> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
+           // if (!ModelState.IsValid)
+             //   return BadRequest();
 
             var ordenar = _mapper.Map<List<Event>>(eventos);
 
@@ -316,7 +227,7 @@ namespace CentralDeErros.Controllers
             
         }
       [HttpGet]
-        public ActionResult<EventDTO> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
+        public ActionResult<List<EventDTO>> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -325,7 +236,7 @@ namespace CentralDeErros.Controllers
 
             var evento = _eventService.OrdenarPorFrequenciaDeLevel(ordenar);
 
-            return Ok(_mapper.Map<List<EventDTO>>(evento));
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
         }
         

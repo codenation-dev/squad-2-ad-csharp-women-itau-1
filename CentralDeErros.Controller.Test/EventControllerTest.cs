@@ -54,7 +54,7 @@ namespace CentralDeErros.Controller.Test
 
             var controle = new EventController(service, _serviceFake.Mapper);
 
-            var resultado = controle.Get(1);
+            var resultado = controle.Get(id);
 
 
             Assert.IsType<OkObjectResult>(resultado.Result);
@@ -148,16 +148,15 @@ namespace CentralDeErros.Controller.Test
 
             var resultado = controle.ListarPorAmbiente("Dev");
 
-
             Assert.IsType<OkObjectResult>(resultado.Result);
 
             var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
 
-            Assert.IsType<List<UserDTO>>(userAtual);
+            Assert.IsType<List<EventDTO>>(userAtual);
 
             Assert.NotNull(userAtual);
 
-            Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
+            Assert.Equal(esperado.Count, userAtual.Count);
         }
         [Fact]
         public void Devera_Retornar_Get_Listar_Por_Level()
@@ -182,7 +181,7 @@ namespace CentralDeErros.Controller.Test
 
             Assert.NotNull(userAtual);
 
-            Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
+            Assert.Equal(esperado.Count, userAtual.Count);
         }
         [Fact]
         public void Devera_Retornar_Get_Listar_Por_Descricao()
@@ -230,8 +229,32 @@ namespace CentralDeErros.Controller.Test
 
             Assert.NotNull(userAtual);
 
-            Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
+            Assert.Equal(esperado.Count, userAtual.Count);
         }
+        [Fact]
+        public void Devera_Retornar_Get_Ordenar_Por_Level()
+        {
+
+            var service = _serviceFake.FakeEvent().Object;
+
+            var expected = _serviceFake.GetDadosFake<List<EventDTO>>().First();
+          //  expected.Id = 0;
+
+
+            var controller = new EventController(service, _serviceFake.Mapper);
+
+            var result = controller.OrdernarPorLevel(expected);
+
+            Assert.IsType<OkObjectResult>(result.Result);
+
+
+            var actual = (result.Result as OkObjectResult).Value as List<EventDTO>;
+
+            Assert.NotNull(actual);
+
+            
+        }
+        /*
         [Fact]
         public void Devera_Retornar_Ok_Arquivar_Post()
         {
@@ -244,6 +267,31 @@ namespace CentralDeErros.Controller.Test
 
 
         }
+        [Fact]
+        public void Devera_Retornar_Ok_Delete(int id)
+        {
+            var service = _serviceFake.FakeEvent().Object;;
+
+           var expected = _serviceFake.Mapper.Map<List<EventDTO>>(Deletar).First();
+
+
+            var expected = service.Mapper.Map<CentralErros.Models.Environment>(fakeEnvironmentService.FindById(id));
+
+            var contexto = new CentralErroContexto(fakes.FakeOptions);
+
+            var controller = new EnvironmentController(fakeEnvironmentService,
+                fakes.Mapper, contexto);
+
+            var result = controller.Delete(id);
+
+            Assert.IsType<OkObjectResult>(result.Result);
+            var actual = (result.Result as OkObjectResult).Value as CentralErros.Models.Environment;
+
+            Assert.NotNull(actual);
+            Assert.Equal(expected, actual, new EnvironmentIdComparer());
+        }
+        
+         */
 
     }
 }

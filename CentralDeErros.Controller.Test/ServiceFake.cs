@@ -158,8 +158,10 @@ namespace CentralDeErros.Controller.Test
                                    }
                                    return evento;
                                });
-               //  service.Setup(x => x.Deletar(It.IsAny<Event>())).
-                 //   Returns((Event  event) => GetDadosFake<Event>().FirstOrDefault());
+
+           
+            //  service.Setup(x => x.Deletar(It.IsAny<Event>())).
+            //   Returns((Event  event) => GetDadosFake<Event>().FirstOrDefault());
 
             return service;
 
