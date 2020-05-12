@@ -12,256 +12,232 @@ namespace CentralDeErros.Controller.Test
 {
     public class EventControllerTest
     {
-        //private readonly ServiceFake _serviceFake;
+        private readonly ServiceFake _serviceFake;
 
-        //public EventControllerTest()
-        //{
-        //    _serviceFake = new ServiceFake();
-        //}
+        public EventControllerTest()
+        {
+            _serviceFake = new ServiceFake();
+        }
 
-        //[Fact]
-        //public void Devera_Retornar_Get_Por_Id()
-        //{
+        [Fact]
+        public void Devera_Retornar_Get_Por_Id()
+        {
 
-        //    var service = _serviceFake.FakeEvent().Object;
+            var service = _serviceFake.FakeEvent().Object;
 
-        //    var esperado = _serviceFake.Mapper.Map<EventDTO>(service.ProcurarPorId(1));
+            var esperado = _serviceFake.Mapper.Map<EventDTO>(service.ProcurarPorId(1));
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            var controle = new EventController(service, _serviceFake.Mapper);
 
-        //    var resultado = controle.Get(1);
+            var resultado = controle.Get(1);
 
 
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
+            Assert.IsType<OkObjectResult>(resultado.Result);
 
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as EventDTO;
+            var userAtual = (resultado.Result as OkObjectResult).Value as EventDTO;
 
-        //    Assert.IsType<EventDTO>(userAtual);
+            Assert.IsType<EventDTO>(userAtual);
 
-        //    Assert.NotNull(userAtual);
+            Assert.NotNull(userAtual);
 
-        //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
-        //}
-        //[Theory]
-        //[InlineData(1)]
-        //[InlineData(2)]
-        //[InlineData(3)]
-        //public void Devera_Retornar_Ok_Quando_Get_Por_Ids(int id)
-        //{
-        //    var service = _serviceFake.FakeEvent().Object;
+           Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
+        }
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void Devera_Retornar_Ok_Quando_Get_Por_Ids(int id)
+        {
+            var service = _serviceFake.FakeEvent().Object;
 
-        //    var esperado = _serviceFake.Mapper.Map<EventDTO>(service.ProcurarPorId(id));
+            var esperado = _serviceFake.Mapper.Map<EventDTO>(service.ProcurarPorId(id));
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            var controle = new EventController(service, _serviceFake.Mapper);
 
-<<<<<<< HEAD
+
             var resultado = controle.Get(id);
-=======
-        //    var resultado = controle.Get(1);
->>>>>>> master
+
+            Assert.IsType<OkObjectResult>(resultado.Result);
+
+            var userAtual = (resultado.Result as OkObjectResult).Value as EventDTO;
+
+            Assert.IsType<EventDTO>(userAtual);
+
+            Assert.NotNull(userAtual);
+
+            Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
+        }
+        [Fact]
+        public void Devera_Retornar_OK_Quando_Add_Post()
+        {
+            var service = _serviceFake.FakeEvent().Object;
+
+            var expected = _serviceFake.GetDadosFake<EventDTO>().First();
+            expected.Id = 0;
 
 
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
+            var controller = new EventController(service, _serviceFake.Mapper);
 
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as EventDTO;
+            var result = controller.Post(expected);
 
-        //    Assert.IsType<EventDTO>(userAtual);
-
-        //    Assert.NotNull(userAtual);
-
-        //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
-        //}
-        //[Fact]
-        //public void Devera_Retornar_OK_Quando_Add_Post()
-        //{
-        //    var service = _serviceFake.FakeEvent().Object;
-
-        //    var expected = _serviceFake.GetDadosFake<EventDTO>().First();
-        //    expected.Id = 0;
+            Assert.IsType<OkObjectResult>(result.Result);
 
 
-        //    var controller = new EventController(service, _serviceFake.Mapper);
+            var actual = (result.Result as OkObjectResult).Value as EventDTO;
 
-        //    var result = controller.Post(expected);
-
-        //    Assert.IsType<OkObjectResult>(result.Result);
-
-
-        //    var actual = (result.Result as OkObjectResult).Value as EventDTO;
-
-        //    Assert.NotNull(actual);
+            Assert.NotNull(actual);
 
         //    // comparar retorno com esperado inserido no retorno dos metodo fake
-        //    Assert.Equal(999, actual.Id);
-        //    Assert.Equal(expected.Level, actual.Level);
-        //    Assert.Equal(expected.Description, actual.Description);
-        //    Assert.Equal(expected.Origin, actual.Origin);
-        //    Assert.Equal(expected.Data, actual.Data);
-        //    Assert.Equal(expected.Log, actual.Log);
-        //    Assert.Equal(expected.Environment, actual.Environment);
-        //    Assert.Equal(expected.Archived, actual.Archived);
-        //    Assert.Equal(expected.LogId, actual.LogId);
-        //    Assert.Equal(expected.Title, actual.Title);
-        //    Assert.Equal(expected.CollectedBy, actual.CollectedBy);
-        //}
-        //[Fact]
-        //public void Devera_Retornar_OK_Quando_Aletrar_Put()
-        //{
+            Assert.Equal(999, actual.Id);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Origin, actual.Origin);
+            Assert.Equal(expected.Data, actual.Data);
+            Assert.Equal(expected.Log, actual.Log);
+            Assert.Equal(expected.Environment, actual.Environment);
+            Assert.Equal(expected.Archived, actual.Archived);
+            Assert.Equal(expected.LogId, actual.LogId);
+            Assert.Equal(expected.Title, actual.Title);
+            Assert.Equal(expected.CollectedBy, actual.CollectedBy);
 
-        //    var service = _serviceFake.FakeEvent().Object;
+        }
+        [Fact]
+        public void Devera_Retornar_OK_Quando_Aletrar_Put()
+        {
 
-        //    var expected = _serviceFake.GetDadosFake<EventDTO>().First();
+           var service = _serviceFake.FakeEvent().Object;
+
+            var expected = _serviceFake.GetDadosFake<EventDTO>().First();
         //    // expected.Id = _serviceFake.GetDadosFake<UserDTO>().Where(x => x.Id == expected.Id).FirstOrDefault();
 
-        //    var controller = new EventController(service, _serviceFake.Mapper);
+            var controller = new EventController(service, _serviceFake.Mapper);
 
-        //    var result = controller.Put(expected);
-
-
-        //    Assert.IsType<OkObjectResult>(result.Result);
+            var result = controller.Put(expected);
 
 
-        //    var actual = (result.Result as OkObjectResult).Value as EventDTO;
+            Assert.IsType<OkObjectResult>(result.Result);
 
-        //    Assert.NotNull(actual);
 
-        //    // comparar retorno com esperado inserido no retorno dos metodo fake
-        //    Assert.Equal(expected.Id, actual.Id);
-        //    Assert.Equal(expected.Level, actual.Level);
-        //    Assert.Equal(expected.Description, actual.Description);
-        //    Assert.Equal(expected.Origin, actual.Origin);
-        //    Assert.Equal(expected.Data, actual.Data);
-        //    Assert.Equal(expected.Log, actual.Log);
-        //    Assert.Equal(expected.Environment, actual.Environment);
-        //    Assert.Equal(expected.Archived, actual.Archived);
-        //    Assert.Equal(expected.LogId, actual.LogId);
-        //    Assert.Equal(expected.Title, actual.Title);
-        //    Assert.Equal(expected.CollectedBy, actual.CollectedBy);
-        //}
-        //[Fact]
-        //public void Devera_Retornar_Get_Listar_Por_Ambiente()
-        //{
+            var actual = (result.Result as OkObjectResult).Value as EventDTO;
 
-        //    var service = _serviceFake.FakeEvent().Object;
+           Assert.NotNull(actual);
 
-        //    //   var nomeLogin = "izabel_squad2";
+            // comparar retorno com esperado inserido no retorno dos metodo fake
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Level, actual.Level);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.Origin, actual.Origin);
+            Assert.Equal(expected.Data, actual.Data);
+            Assert.Equal(expected.Log, actual.Log);
+            Assert.Equal(expected.Environment, actual.Environment);
+            Assert.Equal(expected.Archived, actual.Archived);
+            Assert.Equal(expected.LogId, actual.LogId);
+            Assert.Equal(expected.Title, actual.Title);
+           Assert.Equal(expected.CollectedBy, actual.CollectedBy);
+        }
+        [Fact]
+        public void Devera_Retornar_Get_Listar_Por_Ambiente()
+        {
 
-        //    var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorAmbiente("Dev"));
+            var service = _serviceFake.FakeEvent().Object;
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            //   var nomeLogin = "izabel_squad2";
 
-        //    var resultado = controle.ListarPorAmbiente("Dev");
+           var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorAmbiente("Dev"));
 
-<<<<<<< HEAD
+           var controle = new EventController(service, _serviceFake.Mapper);
+
+            var resultado = controle.ListarPorAmbiente("Dev");
+
+
             Assert.IsType<OkObjectResult>(resultado.Result);
-=======
 
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
->>>>>>> master
+          var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
 
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
 
-<<<<<<< HEAD
             Assert.IsType<List<EventDTO>>(userAtual);
-=======
-        //    Assert.IsType<List<UserDTO>>(userAtual);
->>>>>>> master
+            Assert.NotNull(userAtual);
 
-        //    Assert.NotNull(userAtual);
 
-<<<<<<< HEAD
             Assert.Equal(esperado.Count, userAtual.Count);
         }
         [Fact]
         public void Devera_Retornar_Get_Listar_Por_Level()
         {
-=======
-        //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
-        //}
-        //[Fact]
-        //public void Devera_Retornar_Get_Listar_Por_Level()
-        //{
->>>>>>> master
 
-        //    var service = _serviceFake.FakeEvent().Object;
+            var service = _serviceFake.FakeEvent().Object;
 
         //    //   var nomeLogin = "izabel_squad2";
 
-        //    var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorLevel("error", "Dev"));
+            var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorLevel("error", "Dev"));
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            var controle = new EventController(service, _serviceFake.Mapper);
 
-        //    var resultado = controle.ListarPorLevel("error", "Dev");
+            var resultado = controle.ListarPorLevel("error", "Dev");
 
 
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
+            Assert.IsType<OkObjectResult>(resultado.Result);
 
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
+            var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
 
-        //    Assert.IsType<List<EventDTO>>(userAtual);
+              Assert.IsType<List<EventDTO>>(userAtual);
 
-        //    Assert.NotNull(userAtual);
+           Assert.NotNull(userAtual);
 
-<<<<<<< HEAD
+
             Assert.Equal(esperado.Count, userAtual.Count);
         }
         [Fact]
         public void Devera_Retornar_Get_Listar_Por_Descricao()
         {
-=======
-        //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
-        //}
-        //[Fact]
-        //public void Devera_Retornar_Get_Listar_Por_Descricao()
-        //{
->>>>>>> master
 
-        //    var service = _serviceFake.FakeEvent().Object;
+
+          var service = _serviceFake.FakeEvent().Object;
 
             
-        //    var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorDescricao("acceleration.Service.AddCandidate: <forbidden>", "Dev"));
+           var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorDescricao("acceleration.Service.AddCandidate: <forbidden>", "Dev"));
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            var controle = new EventController(service, _serviceFake.Mapper);
 
-        //    var resultado = controle.ListarPorDescricao("acceleration.Service.AddCandidate: <forbidden>", "Dev");
-
-
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
-
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
-
-        //    Assert.IsType<List<EventDTO>>(userAtual);
-
-        //    Assert.NotNull(userAtual);
-
-        //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
-        //}
-        //[Fact]
-        //public void Devera_Retornar_Get_Listar_Por_Origem()
-        //{
-
-        //    var service = _serviceFake.FakeEvent().Object;
+           var resultado = controle.ListarPorDescricao("acceleration.Service.AddCandidate: <forbidden>", "Dev");
 
 
-        //    var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorOrigem("104.0.1.2", "Dev"));
+           Assert.IsType<OkObjectResult>(resultado.Result);
 
-        //    var controle = new EventController(service, _serviceFake.Mapper);
+            var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
 
-        //    var resultado = controle.ListarPorOrigem("104.0.1.2", "Dev");
+            Assert.IsType<List<EventDTO>>(userAtual);
 
+            Assert.NotNull(userAtual);
 
-        //    Assert.IsType<OkObjectResult>(resultado.Result);
-
-        //    var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
-
-        //    Assert.IsType<List<EventDTO>>(userAtual);
-
-        //    Assert.NotNull(userAtual);
-
-<<<<<<< HEAD
-            Assert.Equal(esperado.Count, userAtual.Count);
+            Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
         }
         [Fact]
+        public void Devera_Retornar_Get_Listar_Por_Origem()
+        {
+
+            var service = _serviceFake.FakeEvent().Object;
+
+
+            var esperado = _serviceFake.Mapper.Map<List<EventDTO>>(service.BuscarPorOrigem("104.0.1.2", "Dev"));
+
+            var controle = new EventController(service, _serviceFake.Mapper);
+
+            var resultado = controle.ListarPorOrigem("104.0.1.2", "Dev");
+
+
+            Assert.IsType<OkObjectResult>(resultado.Result);
+
+            var userAtual = (resultado.Result as OkObjectResult).Value as List<EventDTO>;
+
+            Assert.IsType<List<EventDTO>>(userAtual);
+
+            Assert.NotNull(userAtual);
+
+
+            Assert.Equal(esperado.Count, userAtual.Count);
+        }
+       /* [Fact]
         public void Devera_Retornar_Get_Ordenar_Por_Level()
         {
 
@@ -287,14 +263,12 @@ namespace CentralDeErros.Controller.Test
         /*
         [Fact]
         public void Devera_Retornar_Ok_Arquivar_Post()
-        {
-=======
+       
         //    Assert.Equal(esperado, userAtual, new EventIdDtoComparer());
         //}
         //[Fact]
         //public void Devera_Retornar_Ok_Arquivar_Post()
         //{
->>>>>>> master
             
 
         //}
@@ -303,7 +277,7 @@ namespace CentralDeErros.Controller.Test
         //{
 
 
-<<<<<<< HEAD
+
         }
         [Fact]
         public void Devera_Retornar_Ok_Delete(int id)
@@ -330,9 +304,8 @@ namespace CentralDeErros.Controller.Test
         }
         
          */
-=======
+
         //}
->>>>>>> master
 
     }
 }
