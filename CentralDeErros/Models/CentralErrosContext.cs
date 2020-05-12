@@ -20,7 +20,7 @@ namespace CentralDeErros.Models
             //confirmação de configuraão para utilizar com In Memory Database
             if (!optionsBuilder.IsConfigured)
             {
-               // optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=TesteDB; User Id = sa; Password=Jullia@3005;Trusted_Connection=False");
+              //optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=TesteDB; User Id = sa; Password=Jullia@3005;Trusted_Connection=False");
 
                 //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CentralDeErros;Integrated Security=True;");
 

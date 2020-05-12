@@ -49,7 +49,7 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Post([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             var evento = _mapper.Map<Event>(value);
 

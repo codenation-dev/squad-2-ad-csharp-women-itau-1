@@ -24,10 +24,10 @@ namespace CentralDeErros.ConfigStartup
         {
             var info = new Info()
             {
-                Title = "API - Loja OnLine",
+                Title = "API - Loja Central de Erros",
                 Version = "v1",
-                Description = "Esta API é responsavel pelo gerenciamento do sistema de loja OnLine",
-                Contact = new Contact() { Name = "Ingrid Costa!!!!", Email = "ingrid@mail.com" }
+                Description = "Esta API é responsavel pelo gerenciamento do sistema de Erros",
+                Contact = new Contact() { Name = "Squad 2 Codenation!!!!"}
             };
 
             if (description.IsDeprecated)
