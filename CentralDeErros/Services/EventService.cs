@@ -42,7 +42,7 @@ namespace CentralDeErros.Services
 
         public IList<Event> OrdenarPorLevel(List<Event> eventos)
         {
-            return eventos.OrderBy(x => x.Level).ToList();
+            return eventos.OrderBy(x => x.Level).ToList();  
         }
 
         public IList<Event> OrdenarPorFrequenciaDeLevel(List<Event> eventos)
