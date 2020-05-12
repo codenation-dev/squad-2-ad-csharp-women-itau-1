@@ -194,45 +194,48 @@ namespace CentralDeErros.Controllers
         }
 
         [HttpGet("OrdernarPorLevel")]
-        public ActionResult<EventDTO> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> OrdernarPorLevel(string ambiente)
         {
            if (!ModelState.IsValid)
                 return BadRequest();
 
-            var ordenar = _mapper.Map<List<Event>>(eventos);
+            //var eventos = _eventService.BuscarPorAmbiente(ambiente);
+                 
+            //var ordenar = _mapper.Map<List<Event>>(eventos);
 
-            var evento = _eventService.OrdenarPorLevel(ordenar);
+            var eventos = _eventService.OrdenarPorLevel(ambiente);
 
-            return Ok(_mapper.Map<List<EventDTO>>(evento));
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
             
         }
 
       [HttpGet]
-        public ActionResult<List<EventDTO>> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
+        public ActionResult<List<EventDTO>> OrdenarPorFrequenciaDeLevel(string ambiente)
 
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var ordenar = _mapper.Map<List<Event>>(eventos);
+            //var eventos = _eventService.BuscarPorAmbiente(ambiente);
 
-            var evento = _eventService.OrdenarPorFrequenciaDeLevel(ordenar);
+            //var ordenar = _mapper.Map<List<Event>>(eventos);
+
+            var eventos = _eventService.OrdenarPorFrequenciaDeLevel(ambiente);
 
             return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
         }
         
         [HttpPost("Arquivar")]
-        public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> Arquivar([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var arquivar = _mapper.Map<Event>(eventos);
+            var arquivar = _mapper.Map<Event>(value);
 
-
-            //  var retorno = new List<EventDTO>();
+            var eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
@@ -242,7 +245,7 @@ namespace CentralDeErros.Controllers
                 if (evento == null)
                     return NotFound(item);
 
-                var retorno = _eventService.ArquivarEvento(arquivar);
+                var retorno = _eventService.ArquivarEvento(evento);
             }
 
             return Ok(_mapper.Map<List<EventDTO>>(eventos));
@@ -280,15 +283,14 @@ namespace CentralDeErros.Controllers
         }
 
         [HttpPost("desarquivar")]
-        public ActionResult<EventDTO> Desarquivar([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> Desarquivar([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var desarquivar = _mapper.Map<Event>(eventos);
+            var arquivar = _mapper.Map<Event>(value);
 
-
-           //  var retorno = new List<EventDTO>();
+            var eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
@@ -298,7 +300,7 @@ namespace CentralDeErros.Controllers
                 if (evento == null)
                     return NotFound(item);
 
-                var retorno = _eventService.DesarquivarEvento(desarquivar);
+                var retorno = _eventService.DesarquivarEvento(evento);
             }
 
             return Ok(_mapper.Map<List<EventDTO>>(eventos));
@@ -325,11 +327,14 @@ namespace CentralDeErros.Controllers
 
 
        [HttpPost("deletar")]
-        public ActionResult<EventDTO> Deletar([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> Deletar([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            var deletar = _mapper.Map<Event>(value);
+
+            var eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
@@ -338,12 +343,12 @@ namespace CentralDeErros.Controllers
                 if (evento == null)
                     return NotFound(item);
 
-                _eventService.Deletar(evento);
+                var retorno = _eventService.Deletar(evento);
             }
 
-            return Ok();
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
         }
-        // Esse comentario é apenas um teste para controle de versao
-        
+
+        // Esse comentario é apenas um teste para controle de versao        
     }
 }
