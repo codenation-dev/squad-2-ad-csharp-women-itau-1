@@ -127,7 +127,7 @@ namespace CentralDeErros.Controller.Test
                  service.Setup(x => x.BuscarPorOrigem(It.IsAny<string>(), It.IsAny<string>())).
                   Returns((string origem, string ambiente) => GetDadosFake<Event>().Where(x => x.Origin == origem && x.Environment == ambiente).ToList());
 
-                 service.Setup(x => x.OrdenarPorLevel(It.IsAny<List<Event>>())).
+                 service.Setup(x => x.OrdenarPorLevel(It.IsAny<string>())).
                    Returns((List<Event> events) => GetDadosFake<Event>().OrderBy(x => x.Level).ToList());
 
                  service.Setup(x => x.ArquivarEvento(It.IsAny<Event>())).

@@ -40,13 +40,17 @@ namespace CentralDeErros.Services
             return _context.Events.Where(x => x.Origin == origem && x.Environment == ambiente).ToList();
         }
 
-        public IList<Event> OrdenarPorLevel(List<Event> eventos)
+        public IList<Event> OrdenarPorLevel(string ambiente)
         {
+            var eventos = BuscarPorAmbiente(ambiente);
+
             return eventos.OrderBy(x => x.Level).ToList();  
         }
 
-        public IList<Event> OrdenarPorFrequenciaDeLevel(List<Event> eventos)
+        public IList<Event> OrdenarPorFrequenciaDeLevel(string ambiente)
         {
+            var eventos = BuscarPorAmbiente(ambiente);
+
             var ordenacao = eventos.GroupBy(x => x.Level).Select(group => new
             {
                 Level = group.Key,
