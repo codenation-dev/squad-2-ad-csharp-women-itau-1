@@ -7,13 +7,11 @@ using CentralDeErros.DTO;
 using CentralDeErros.Models;
 using CentralDeErros.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CentralDeErros.Controllers
 {
     [ApiVersion("1.0")]
-    [EnableCors("Development")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
@@ -94,7 +92,8 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
+
 
                 return Ok(retorno);
             }
@@ -111,80 +110,14 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
-                /* foreach (var item in eventos)
-                //var retorno = _mapper.Map<EventDTO>(eventos);
-
-                var retorno = new List<EventDTO>();
-                foreach (var item in eventos)
-                {
-                    var retornoAux = new EventDTO()
-                    {
-                        Id = item.Id,
-                        Level = item.Level,
-                        Archived = item.Archived,
-                        CollectedBy = item.CollectedBy,
-                        Data = item.Data,
-                        Description = item.Description,
-                        Environment = item.Environment,
-                        Log = item.Log,
-                        LogId = item.LogId,
-                        Origin = item.Origin,
-                        Title = item.Title
-                    };
-
-                    retorno.Add(retornoAux);
-                }*/
-
-
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 return Ok(retorno);
             }
 
             return NotFound();
         }
 
-        /*[HttpGet("listarPorLevel")]
-        public ActionResult<IEnumerable<EventDTO>> ListarPorLevel(string level, string ambiente)
-        {
-            var eventos = _eventService.BuscarPorLevel(level, ambiente);
-
-            //var retorno = new List<EventDTO>();
-
-            if (eventos != null)
-            {
-                //var retorno = _mapper.Map<EventDTO>(eventos);
-                var retorno = new List<EventDTO>();
-                foreach (var item in eventos)
-
-                 {
-                     var retornoAux = new EventDTO()
-                     {
-                         Id = item.Id,
-                         Level = item.Level,
-                         Archived = item.Archived,
-                         CollectedBy = item.CollectedBy,
-                         Data = item.Data,
-                         Description = item.Description,
-                         Environment = item.Environment,
-                         Log = item.Log,
-                         LogId = item.LogId,
-                         Origin = item.Origin,
-                         Title = item.Title
-                     }; 
-
-                     retorno.Add(retornoAux);
-
-                 } 
-
-                 } 
-
-
-                return Ok(retorno);
-            }
-
-            return NotFound();
-
-        }*/
+        
 
         [HttpGet("listarPorDescricao")]
         public ActionResult<IEnumerable<EventDTO>> ListarPorDescricao(string descricao, string ambiente)
@@ -195,7 +128,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 /* foreach (var item in eventos)
                  {
                      var retornoAux = new EventDTO()
@@ -232,7 +165,7 @@ namespace CentralDeErros.Controllers
 
             if (eventos != null)
             {
-                var retorno = _mapper.Map<EventDTO>(eventos);
+                var retorno = _mapper.Map<List<EventDTO>>(eventos);
                 /*foreach (var item in eventos)
                 {
                     var retornoAux = new EventDTO()
@@ -260,70 +193,37 @@ namespace CentralDeErros.Controllers
 
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<EventDTO>> OrdenarListaPorLevel(List<Event> eventos)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest();
-
-        //    var retorno = new List<EventDTO>();
-
-
-        //    foreach (var item in eventos)
-        //    {
-
-        //        var evento = _eventService.ProcurarPorId(item.Id);
-
-        //        if (evento == null)
-        //            return NotFound(item);
-
-        //        var eventoAtual = _eventService.OrdenarPorLevel(eventos);
-
-        //        retorno.Add(new EventDTO()
-        //        {
-        //            Id = eventoAtual.Id,
-        //            Level = eventoAtual.Level,
-        //            Archived = eventoAtual.Archived,
-        //            CollectedBy = eventoAtual.CollectedBy,
-        //            Data = eventoAtual.Data,
-        //            Description = eventoAtual.Description,
-        //            Environment = eventoAtual.Environment,
-        //            Log = eventoAtual.Log,
-        //            LogId = eventoAtual.LogId,
-        //            Origin = eventoAtual.Origin,
-        //            Title = eventoAtual.Title
-        //        });
-        //    }
-
-        //    return Ok(retorno);
-        //}
-
         [HttpGet("OrdernarPorLevel")]
-        public ActionResult<EventDTO> OrdernarPorLevel([FromBody]List<EventDTO> eventos)
+        public ActionResult<EventDTO> OrdernarPorLevel(string ambiente)
         {
-            if (!ModelState.IsValid)
+           if (!ModelState.IsValid)
                 return BadRequest();
 
-            var ordenar = _mapper.Map<List<Event>>(eventos);
+            //var eventos = _eventService.BuscarPorAmbiente(ambiente);
+                 
+            //var ordenar = _mapper.Map<List<Event>>(eventos);
 
-            var evento = _eventService.OrdenarPorLevel(ordenar);
+            var eventos = _eventService.OrdenarPorLevel(ambiente);
 
-            return Ok(_mapper.Map<List<EventDTO>>(evento));
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
             
         }
 
-        [HttpGet("OrdenarPorFrequenciaDeLevel")]
-        public ActionResult<EventDTO> OrdenarPorFrequenciaDeLevel([FromBody]List<EventDTO> eventos)
+        [HttpGet("OrdernarPorFrequenciaDeLevel")]
+        public ActionResult<List<EventDTO>> OrdenarPorFrequenciaDeLevel(string ambiente)
+
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var ordenar = _mapper.Map<List<Event>>(eventos);
+            //var eventos = _eventService.BuscarPorAmbiente(ambiente);
 
-            var evento = _eventService.OrdenarPorFrequenciaDeLevel(ordenar);
+            //var ordenar = _mapper.Map<List<Event>>(eventos);
 
-            return Ok(_mapper.Map<List<EventDTO>>(evento));
+            var eventos = _eventService.OrdenarPorFrequenciaDeLevel(ambiente);
+
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
 
         }
         
@@ -333,20 +233,18 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var arquivar = _mapper.Map<Event>(eventos);
+            //var arquivar = _mapper.Map<Event>(value);
 
-
-            //  var retorno = new List<EventDTO>();
+            eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
-
                 var evento = _eventService.ProcurarPorId(item.Id);
 
                 if (evento == null)
                     return NotFound(item);
 
-                var retorno = _eventService.ArquivarEvento(arquivar);
+                _eventService.ArquivarEvento(evento);
             }
 
             return Ok(_mapper.Map<List<EventDTO>>(eventos));
@@ -389,40 +287,21 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var desarquivar = _mapper.Map<Event>(eventos);
+            //var desarquivar = _mapper.Map<Event>(value);
 
-
-           //  var retorno = new List<EventDTO>();
+            eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
-
                 var evento = _eventService.ProcurarPorId(item.Id);
 
                 if (evento == null)
                     return NotFound(item);
 
-                var retorno = _eventService.DesarquivarEvento(desarquivar);
+                _eventService.DesarquivarEvento(evento);
             }
 
-            return Ok(_mapper.Map<List<EventDTO>>(eventos));
-
-            /*
-
-            retorno.Add(new EventDTO()
-            {
-                Id = eventoAtual.Id,
-                Level = eventoAtual.Level,
-                Archived = eventoAtual.Archived,
-                CollectedBy = eventoAtual.CollectedBy,
-                Data = eventoAtual.Data,
-                Description = eventoAtual.Description,
-                Environment = eventoAtual.Environment,
-                Log = eventoAtual.Log,
-                LogId = eventoAtual.LogId,
-                Origin = eventoAtual.Origin,
-                Title = eventoAtual.Title
-            });*/
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));        
         }
 
     
@@ -434,6 +313,9 @@ namespace CentralDeErros.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            //var desarquivar = _mapper.Map<Event>(value);
+
+            eventos = new List<EventDTO>();
 
             foreach (var item in eventos)
             {
@@ -445,9 +327,9 @@ namespace CentralDeErros.Controllers
                 _eventService.Deletar(evento);
             }
 
-            return Ok();
+            return Ok(_mapper.Map<List<EventDTO>>(eventos));
         }
-        // Esse comentario é apenas um teste para controle de versao
-        
+
+        // Esse comentario é apenas um teste para controle de versao        
     }
 }
