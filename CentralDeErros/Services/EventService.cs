@@ -22,22 +22,22 @@ namespace CentralDeErros.Services
 
         public IList<Event> BuscarPorAmbiente(string ambiente)
         {
-            return _context.Events.Where(x => x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Environment == ambiente && x.Archived == false).ToList();
         }
 
         public IList<Event> BuscarPorLevel(string level, string ambiente)
         {
-            return _context.Events.Where(x => x.Level == level && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Level == level && x.Environment == ambiente && x.Archived == false).ToList();
         }
 
         public IList<Event> BuscarPorDescricao(string descricao, string ambiente)
         {
-            return _context.Events.Where(x => x.Description == descricao && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Description == descricao && x.Environment == ambiente && x.Archived == false).ToList();
         }
 
         public IList<Event> BuscarPorOrigem(string origem, string ambiente)
         {
-            return _context.Events.Where(x => x.Origin == origem && x.Environment == ambiente).ToList();
+            return _context.Events.Where(x => x.Origin == origem && x.Environment == ambiente && x.Archived == false).ToList();
         }
 
         public IList<Event> OrdenarPorLevel(string ambiente)
