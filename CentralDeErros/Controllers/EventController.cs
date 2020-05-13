@@ -49,7 +49,7 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Post([FromBody]EventDTO value)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
             var evento = _mapper.Map<Event>(value);
 
@@ -231,13 +231,13 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Arquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState); 
 
-            //var arquivar = _mapper.Map<Event>(value);
+            var arquivar = _mapper.Map<List<Event>>(eventos);
 
-            eventos = new List<EventDTO>();
+           // eventos = new List<EventDTO>();
 
-            foreach (var item in eventos)
+            foreach (var item in arquivar)
             {
                 var evento = _eventService.ProcurarPorId(item.Id);
 
@@ -247,7 +247,7 @@ namespace CentralDeErros.Controllers
                 _eventService.ArquivarEvento(evento);
             }
 
-            return Ok(_mapper.Map<List<EventDTO>>(eventos));
+            return Ok(_mapper.Map<List<EventDTO>>(arquivar));
 
 
 
@@ -285,13 +285,13 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Desarquivar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            //var desarquivar = _mapper.Map<Event>(value);
+            var desarquivar = _mapper.Map<List<Event>>(eventos);
 
-            eventos = new List<EventDTO>();
+           // eventos = new List<List<EventDTO>>();
 
-            foreach (var item in eventos)
+            foreach (var item in desarquivar)
             {
                 var evento = _eventService.ProcurarPorId(item.Id);
 
@@ -301,7 +301,7 @@ namespace CentralDeErros.Controllers
                 _eventService.DesarquivarEvento(evento);
             }
 
-            return Ok(_mapper.Map<List<EventDTO>>(eventos));        
+            return Ok(_mapper.Map<List<EventDTO>>(desarquivar));        
         }
 
     
@@ -311,13 +311,13 @@ namespace CentralDeErros.Controllers
         public ActionResult<EventDTO> Deletar([FromBody]List<EventDTO> eventos)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest(ModelState);
 
-            //var desarquivar = _mapper.Map<Event>(value);
+            var maper = _mapper.Map<List<Event>>(eventos);
 
-            eventos = new List<EventDTO>();
+            //eventos = new List<EventDTO>();
 
-            foreach (var item in eventos)
+            foreach (var item in maper)
             {
                 var evento = _eventService.ProcurarPorId(item.Id);
 
@@ -327,7 +327,7 @@ namespace CentralDeErros.Controllers
                 _eventService.Deletar(evento);
             }
 
-            return Ok(_mapper.Map<List<EventDTO>>(eventos));
+            return Ok(_mapper.Map<List<EventDTO>>(maper));
         }
 
         // Esse comentario é apenas um teste para controle de versao        
