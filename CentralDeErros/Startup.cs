@@ -95,6 +95,7 @@ namespace CentralDeErros
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IEmailServices, EmailServices>();
 
             // add config sendGrid
             services.Configure<SendGridOptions>(Configuration.GetSection("SendGridOptions"));

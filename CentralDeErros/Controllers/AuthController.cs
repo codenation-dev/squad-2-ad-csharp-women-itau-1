@@ -1,5 +1,7 @@
 ﻿using CentralDeErros.DTO;
+using CentralDeErros.Extensions;
 using CentralDeErros.Models;
+using CentralDeErros.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +15,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CentralDeErros.Controllers
 {
@@ -26,12 +29,14 @@ namespace CentralDeErros.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IEmailServices _emailServices;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IEmailServices emailServices)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _emailServices = emailServices;
         }
 
         /*[HttpGet]
@@ -94,6 +99,73 @@ namespace CentralDeErros.Controllers
             return Ok();
         }
 
+        [HttpPost("forgotPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO forgotPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.FindByNameAsync(forgotPassword.Email);
+            if (user == null)
+            {
+                return NotFound($"Usuário '{forgotPassword}' não encontrado.");
+            }
+            else
+            {
+                var forgotMail = await ForgotMainPassword(user);
+                if (forgotMail.Enviado)
+                    return Ok();
+
+                return Unauthorized(forgotMail.error);
+            }
+        }
+
+        // buscar dados através do usuário passado 
+        [HttpGet("resetPassword")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return BadRequest("Não foi possível resetar a senha");
+            }
+
+            var resetPassword = new ResetPasswordDTO();
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Usuário ID '{userId}' não encontrado.");
+            }
+            else
+            {
+                resetPassword.Code = code;
+                resetPassword.Email = user.Email;
+                resetPassword.UserId = userId;
+                return Ok(resetPassword);
+            }
+        }
+
+        // envio nova senha
+        [HttpPost("resetPasswordConfirm")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPasswordConfirm(ResetPasswordConfirmDTO resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.FindByNameAsync(resetPassword.Email);
+            if (user == null)
+            {
+                return NotFound($"Usuário ID não encontrado.");
+            }
+            else
+            {
+                // reset senha Identity
+                return Ok(await _userManager.ResetPasswordAsync(user, resetPassword.Code, resetPassword.Password));
+            }
+        }
+
         private async Task<LoginResponseDTO> GerarJwt(string email)
         {
             // buscar usuario na base
@@ -150,6 +222,18 @@ namespace CentralDeErros.Controllers
             };
 
             return response;
+        }
+
+        private async Task<EmailResponse> ForgotMainPassword(IdentityUser user)
+        {
+            // gerar JWT para reset de senha
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // criar link para retorno 
+            var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, HttpUtility.UrlEncode(code), Request.Scheme);
+
+            // método de extensão de URL
+            return await _emailServices.SendEmailResetPasswordAsync(user.UserName, callbackUrl);
         }
 
     }
